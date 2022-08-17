@@ -60,7 +60,7 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="pages-login.html">Book a Reservation</a>
+      <a class="btn-book-a-table" href="pages-login.php">Book a Reservation</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -75,7 +75,7 @@
           <h2 data-aos="fade-up">Life is too short<br>to have boring hair.</h2>
           <p data-aos="fade-up" data-aos-delay="100">“I think the most important thing a woman can have – next to her talent, of course, – is her hairdresser.” ~ Joan Crawford</p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#book-a-table" class="btn-book-a-table">Book a Reservation</a>
+            <a href="pages-login.php" class="btn-book-a-table">Book a Reservation</a>
             <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
           </div>
         </div>

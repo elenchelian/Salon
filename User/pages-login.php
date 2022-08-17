@@ -84,8 +84,8 @@
                       <button class="btn btn-danger w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="text-center small">Don't have account? <a href="pages-register.html">Create an account</a></p>
-                      <p class="text-center small">Bring me to the <a href="index.html">Main Page</a></p>
+                      <p class="text-center small">Don't have account? <a href="pages-register.php">Create an account</a></p>
+                      <p class="text-center small">Bring me to the <a href="index.php">Main Page</a></p>
                     </div>
 
 

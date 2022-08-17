@@ -1,3 +1,27 @@
+<?php
+require_once 'pdo.php';
+session_start();
+
+if ( isset($_POST['FirstName']) && isset($_POST['LastName']) && isset($_POST['Username']) && isset($_POST['Email'])
+ && isset($_POST['Gender']) && isset($_POST['Address']) && isset($_POST['Password'])) {
+
+    $FirstName = $_POST['FirstName'];
+    $LastName = $_POST['LastName'];
+    $hash = md5($Password);
+    $Username = $_POST['Username'];
+    $Email = $_POST['Email'];
+    $Gender = $_POST['Gender'];
+    $Address = $_POST['Address'];
+
+    $stmt = $pdo->prepare("INSERT INTO user (id,firstname,lastname,username,email,gender,address,password)VALUES('id','$FirstName','$LastName','$Username','$Email','$Gender','$Address','$hash')");
+    $stmt->execute();
+
+
+  header("Location: pages-login.php");
+  return;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,30 +87,30 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-2 needs-validation" >
+                  <form class="row g-2 needs-validation" method="post" onsubmit="return CheckPassword()">
                     <div class="col-12">
                       <label for="FirstName" class="form-label">First Name</label>
-                      <input type="text" name="name" class="form-control" id="FirstName" required>
+                      <input type="text" name="FirstName" class="form-control" id="FirstName" required>
                       <div class="invalid-feedback">Please, enter your First name!</div>
                     </div>
 
                     <div class="col-12">
                       <label for="LastName" class="form-label">Last Name</label>
-                      <input type="text" name="name" class="form-control" id="LastName" required>
+                      <input type="text" name="LastName" class="form-control" id="LastName" required>
                       <div class="invalid-feedback">Please, enter your Last name!</div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="Username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <input type="email" name="Email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
 
@@ -94,13 +118,13 @@
                       <legend class="col-form-label col-sm-3 pt-0">Gender</legend>
                       <div class="col-sm-10">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" >
+                          <input class="form-check-input" type="radio" name="Gender" id="Male" value="Male" >
                           <label class="form-check-label" for="Male">
                             Male
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" id="Female" value="Female">
+                          <input class="form-check-input" type="radio" name="Gender" id="Female" value="Female">
                           <label class="form-check-label" for="Female">
                             Female
                           </label>
@@ -109,7 +133,7 @@
 
                       <div class="col-12">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" name="name" class="form-control" id="address" required>
+                        <input type="text" name="Address" class="form-control" id="address" required>
                         <div class="invalid-feedback">Please, enter your Address !</div>
                       </div>
 
@@ -117,8 +141,8 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <div class="input-group has-validation">
-                        <input type="password" name="password" class="form-control" id="yourPassword" required/>
-                        <span class="input-group-text" ><i class="bi bi-eye-slash" id="togglePassword" ></i></span>
+                        <input type="password" name="Password" class="form-control" id="Password" required/>
+                        <span class="input-group-text" ><i class="bi bi-eye-slash" id="Passwordt" ></i></span>
                         <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>
@@ -126,8 +150,8 @@
                     <div class="col-12">
                       <label for="yourConfirmPassword" class="form-label">Confirm Password</label>
                         <div class="input-group has-validation">
-                          <input type="password" name="password" class="form-control" id="yourConfirmPassword" required>
-                          <span class="input-group-text" ><i class="bi bi-eye-slash" id="togglePassword2"></i></span>
+                          <input type="password" name="Cpassword" class="form-control" id="Cpassword" required>
+                          <span class="input-group-text" ><i class="bi bi-eye-slash" id="Cpasswordt"></i></span>
                           <div class="invalid-feedback">Please enter your password!</div>
                         </div>
                     </div>
@@ -147,8 +171,8 @@
                     </div>
                   </form>
                   <script>
-                      const togglePassword = document.querySelector('#togglePassword');
-                      const password = document.querySelector('#yourPassword');
+                      const togglePassword = document.querySelector('#Passwordt');
+                      const password = document.querySelector('#Password');
 
                       togglePassword.addEventListener('click', function (e) {
                       // toggle the type attribute
@@ -158,8 +182,8 @@
                       this.classList.toggle('bi bi-eye');
                       });
 
-                      const togglePassword2 = document.querySelector('#togglePassword2');
-                      const password2 = document.querySelector('#yourConfirmPassword');
+                      const togglePassword2 = document.querySelector('#Cpasswordt');
+                      const password2 = document.querySelector('#Cpassword');
 
                       togglePassword2.addEventListener('click', function (e) {
                       // toggle the type attribute
@@ -168,6 +192,37 @@
                       // toggle the eye slash icon
                       this.classList.toggle('bi bi-eye');
                       });
+
+                      function CheckPassword()
+                      {
+                        var passw = document.getElementById('Password').value;
+                        var passw2 = document.getElementById('Cpassword').value;
+                        var upper  =/[A-Z]/;
+                        var number = /[0-9]/;
+
+                        if(passw.length < 8 || passw.length > 20 || passw != passw2 || !number.test(passw) || !upper.test(passw)) {
+                          if(passw.length<8){
+                            alert("Please make sure password is longer than 8 characters.")
+                            return false;
+                          }
+                          if(passw.length>20){
+                            alert("Please make sure password is shorter than 20 characters.")
+                            return false;
+                          }
+                          if(passw != passw2){
+                            alert("Please make sure passwords match.")
+                            return false;
+                          }
+                          if(!number.test(passw)){
+                            alert("Please make sure password includes a digit")
+                            return false;
+                          }
+                          if(!upper.test(passw)) {
+                            alert("Please make sure password includes an uppercase letter.")
+                            return false;
+                          }
+                        }
+                      }
 
                   </script>
                 </div>
