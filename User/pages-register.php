@@ -7,6 +7,7 @@ if ( isset($_POST['FirstName']) && isset($_POST['LastName']) && isset($_POST['Us
 
     $FirstName = $_POST['FirstName'];
     $LastName = $_POST['LastName'];
+    $Password = $_POST['Password'];
     $hash = md5($Password);
     $Username = $_POST['Username'];
     $Email = $_POST['Email'];

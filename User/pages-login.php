@@ -1,3 +1,28 @@
+<?php
+require_once 'pdo.php';
+session_start();
+$conn = mysqli_connect("localhost", "root", "", "salon");
+if ( isset($_POST['username']) && isset($_POST['password'])) {
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $hash = md5($password);
+    $query = "SELECT * FROM user WHERE username='$username'and password='$hash'";
+    $result = mysqli_query($conn,$query) ;
+    $rows = mysqli_num_rows($result);
+    $getval = $result->fetch_assoc();
+        if($rows==1){
+        $_SESSION['email'] = $email;
+        $_SESSION['id'] = $getval['id'];
+
+        header("Location: dashboard.php");
+         }else{
+        echo'<script>alert("Your Username and Password is Invalid")</script>';
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,21 +82,24 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation"  method="post">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="username" class="form-control" id="username" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                        <div class="input-group has-validation">
+                        <input type="password" name="password" class="form-control" id="password" required>
+                        <span class="input-group-text" ><i class="bi bi-eye-slash" id="Passwordt" ></i></span>
+                        <div class="invalid-feedback">Please enter your password!</div>
+                      </div>
                     </div>
 
                     <!-- <div class="col-12">
@@ -91,6 +119,29 @@
 
                   </form>
 
+                  <script>
+                      const togglePassword = document.querySelector('#Passwordt');
+                      const password = document.querySelector('#Password');
+
+                      togglePassword.addEventListener('click', function (e) {
+                      // toggle the type attribute
+                      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                      password.setAttribute('type', type);
+                      // toggle the eye slash icon
+                      this.classList.toggle('bi bi-eye');
+                      });
+
+                      const togglePassword2 = document.querySelector('#Cpasswordt');
+                      const password2 = document.querySelector('#Cpassword');
+
+                      togglePassword2.addEventListener('click', function (e) {
+                      // toggle the type attribute
+                      const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+                      password2.setAttribute('type', type);
+                      // toggle the eye slash icon
+                      this.classList.toggle('bi bi-eye');
+                      });
+                      </script>
                 </div>
               </div>
 
