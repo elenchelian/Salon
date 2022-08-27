@@ -7,12 +7,12 @@ if ( isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $hash = md5($password);
-    $query = "SELECT * FROM user WHERE username='$username'and password='$hash'";
+    $query = "SELECT * FROM user WHERE email='$username'and password='$hash'";
     $result = mysqli_query($conn,$query) ;
     $rows = mysqli_num_rows($result);
     $getval = $result->fetch_assoc();
         if($rows==1){
-        $_SESSION['email'] = $email;
+        $_SESSION['email'] = $username;
         $_SESSION['id'] = $getval['id'];
 
         header("Location: dashboard.php");
@@ -79,17 +79,17 @@ if ( isset($_POST['username']) && isset($_POST['password'])) {
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <p class="text-center small">Enter your Email & password to login</p>
                   </div>
 
                   <form class="row g-3 needs-validation"  method="post">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Email Address</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="username" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <div class="invalid-feedback">Please enter your Email Address.</div>
                       </div>
                     </div>
 

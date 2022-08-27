@@ -168,7 +168,7 @@ if ( isset($_POST['FirstName']) && isset($_POST['LastName']) && isset($_POST['Us
                       <button class="btn btn-danger w-100" type="submit">Create Account</button>
                     </div>
                     <div class="col-12">
-                      <p class="text-center small">Already have an account? <a href="pages-login.html">Log in</a></p>
+                      <p class="text-center small">Already have an account? <a href="pages-login.php">Log in</a></p>
                     </div>
                   </form>
                   <script>
