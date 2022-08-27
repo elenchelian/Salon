@@ -134,7 +134,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="pages-login.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -174,17 +174,17 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-alerts.html">
+            <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>Book Appointment</span>
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="appoinment_status_page.php">
               <i class="bi bi-circle"></i><span>Appointment Status</span>
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="appoinment_history_page.php">
               <i class="bi bi-circle"></i><span>Appointment History</span>
             </a>
           </li>
