@@ -1,3 +1,10 @@
+<?php
+require_once 'pdo.php';
+session_start();
+$conn = mysqli_connect("localhost", "root", "", "salon");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,129 +148,123 @@
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
 
           <li class="nav-item">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-              <h4>Starters</h4>
+            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-hair">
+              <h4>Hair Care</h4>
             </a>
           </li><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-              <h4>Breakfast</h4>
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-skin">
+              <h4>Skin Care</h4>
             </a><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-              <h4>Lunch</h4>
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-nail">
+              <h4>Nail Care</h4>
             </a>
           </li><!-- End tab nav item -->
 
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
-              <h4>Dinner</h4>
-            </a>
-          </li><!-- End tab nav item -->
+
 
         </ul>
 
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
 
-          <div class="tab-pane fade active show" id="menu-starters">
+          <div class="tab-pane fade active show" id="menu-hair">
 
             <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Starters</h3>
+              <p>Service Category</p>
+              <h3>Hair Care</h3>
             </div>
 
             <div class="row gy-5">
-
+              <?php
+             $sql = "SELECT * FROM service where service_cat='Hair_Care'";
+             $result = mysqli_query($conn, $sql);
+             if (mysqli_num_rows($result) > 0) {
+               while ($row = mysqli_fetch_assoc($result)) {
+             ?>
               <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
+                <h4><?php echo $row['service_name']; ?></h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                  <?php echo $row['service_desc']; ?>
                 </p>
                 <p class="price">
-                  $5.95
+                  <?php echo $row['service_price']; ?>
                 </p>
               </div><!-- Menu Item -->
-
+              <?php
+                }
+              }
+              ?>
 
             </div>
           </div><!-- End Starter Menu Content -->
 
-          <div class="tab-pane fade" id="menu-breakfast">
+          <div class="tab-pane fade" id="menu-skin">
 
             <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Breakfast</h3>
+              <p>Service Category</p>
+              <h3>Skin Care</h3>
             </div>
 
             <div class="row gy-5">
-
+              <?php
+             $sql = "SELECT * FROM service where service_cat='Skin_Care'";
+             $result = mysqli_query($conn, $sql);
+             if (mysqli_num_rows($result) > 0) {
+               while ($row = mysqli_fetch_assoc($result)) {
+             ?>
               <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
+                <!-- <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a> -->
+                <h4><?php echo $row['service_name']; ?></h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                  <?php echo $row['service_desc']; ?>
                 </p>
                 <p class="price">
-                  $5.95
+                  <?php echo $row['service_price']; ?>
                 </p>
               </div><!-- Menu Item -->
-
-
-
+              <?php
+                }
+              }
+              ?>
             </div>
           </div><!-- End Breakfast Menu Content -->
 
-          <div class="tab-pane fade" id="menu-lunch">
+          <div class="tab-pane fade" id="menu-nail">
 
             <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Lunch</h3>
+              <p>Service Category</p>
+              <h3>Nail Care</h3>
             </div>
 
             <div class="row gy-5">
-
+              <?php
+             $sql = "SELECT * FROM service where service_cat='Nail_Care'";
+             $result = mysqli_query($conn, $sql);
+             if (mysqli_num_rows($result) > 0) {
+               while ($row = mysqli_fetch_assoc($result)) {
+             ?>
               <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
+                <!-- <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a> -->
+                <h4><?php echo $row['service_name']; ?></h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                  <?php echo $row['service_desc']; ?>
                 </p>
                 <p class="price">
-                  $5.95
+                  <?php echo $row['service_price']; ?>
                 </p>
               </div><!-- Menu Item -->
-
+              <?php
+                }
+              }
+              ?>
 
             </div>
           </div><!-- End Lunch Menu Content -->
 
-          <div class="tab-pane fade" id="menu-dinner">
 
-            <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Dinner</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-              </div><!-- Menu Item -->
-
-
-
-            </div>
-          </div><!-- End Dinner Menu Content -->
 
         </div>
 
@@ -309,6 +310,8 @@
 
       </div>
     </section><!-- End Stats Counter Section -->
+
+
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery section-bg">
