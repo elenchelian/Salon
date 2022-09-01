@@ -167,7 +167,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="reward_page.php">
           <i class="bi bi-gift"></i>
           <span>Reward Store</span>
         </a>
@@ -207,7 +207,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <th scope="col">Booking Time</th>
                 <th scope="col">Booking Deposit</th>
                 <th scope="col">Booking Status</th>
-                <th scope="col">Cancel Booking</th>
+                <th scope="col" align="center">Cancel Booking</th>
               </tr>
             </thead>
             <tbody>
@@ -218,13 +218,15 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                while ($row = mysqli_fetch_assoc($result)) {
              ?>
               <tr>
-                <th scope="row"><?php echo $row['id']; ?></th>
+                <th scope="row"><?php echo $row['id'];?></th>
                 <td><?php echo $row['booking_service']; ?></td>
                 <td><?php echo $row['booking_date']; ?></td>
                 <td><?php echo $row['booking_time']; ?></td>
                 <td><?php echo $row['booking_deposit']; ?></td>
                 <td><?php echo $row['booking_status']; ?></td>
-                <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verticalycentered">Cancel Booking</button></td>
+                <td >
+                  <a href="cancel_booking.php?update=<?php echo $row['id']; ?>" class="btn btn-outline-danger" onclick="return confirm('Are you sure want to Cancel the booking on <?php echo $row['booking_date'];?> at <?php echo $row['booking_time'];?> ?');">Cancel Booking</a>
+                  <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verticalycentered" >Cancel Booking </button> -->
                 <div class="modal fade" id="verticalycentered" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -233,15 +235,18 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        Are you sure want to cancel the booking on  <?php echo $row['booking_date']; ?> at <?php echo $row['booking_time']; ?> for <?php echo $row['booking_service']; ?>
+                        Are you sure want to cancel the booking on  <?php echo $row["id"]; ?> at <?php echo $row['booking_time']; ?> for <?php echo $row['booking_service']; ?>
                       </div>
+                      <input type="text" name="appoinment_id" value="<?php echo $row['id']; ?>" id="">
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger">Save changes</button>
+                        <button type="submit" class="btn btn-danger">Proceed</button>
                       </div>
                     </div>
+
                   </div>
                 </div>
+                </td>
               </tr>
               <?php
                 }

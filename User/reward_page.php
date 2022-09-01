@@ -182,63 +182,58 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Reservation</h1>
+      <h1>Reward Store</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">Appoinment History</li>
+          <li class="breadcrumb-item">Reward Store</li>
+          <li class="breadcrumb-item active">Rewards</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+      <div class="row">
 
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Appoinment History</h5>
+        <!-- Left side columns -->
+        <div class="center">
+          <div class="row">
 
-          <!-- Table with hoverable rows -->
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Service Name</th>
-                <th scope="col">Booking Date</th>
-                <th scope="col">Booking Time</th>
-                <th scope="col">Booking Deposit</th>
-                <th scope="col">Booking Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-             $sql = "SELECT * FROM booking where booking_email='{$_SESSION["email"]}' ";
-             $result = mysqli_query($conn, $sql);
-             if (mysqli_num_rows($result) > 0) {
-               while ($row = mysqli_fetch_assoc($result)) {
-             ?>
-              <tr>
-                <th scope="row"><?php echo $row['id']; ?></th>
-                <td><?php echo $row['booking_service']; ?></td>
-                <td><?php echo $row['booking_date']; ?></td>
-                <td><?php echo $row['booking_time']; ?></td>
-                <td><?php echo $row['booking_deposit']; ?></td>
-                <td><?php echo $row['booking_status']; ?></td>
-              </tr>
-              <?php
-                }
-              }
-              ?>
-            </tbody>
-          </table>
-          <!-- End Table with hoverable rows -->
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
 
-        </div>
-      </div>
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
 
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
 
+                <div class="card-body">
+                  <h5 class="card-title">Sales <span>| Today</span></h5>
 
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cart"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>145</h6>
+                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
+                    </div>
+                  </div>
+                </div>
 
+              </div>
+            </div><!-- End Sales Card -->
+
+          
 
 
 

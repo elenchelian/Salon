@@ -167,7 +167,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="reward_page.php">
           <i class="bi bi-gift"></i>
           <span>Reward Store</span>
         </a>

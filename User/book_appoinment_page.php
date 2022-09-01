@@ -193,7 +193,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="reward_page.php">
           <i class="bi bi-gift"></i>
           <span>Reward Store</span>
         </a>
