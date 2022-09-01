@@ -216,6 +216,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
              $result = mysqli_query($conn, $sql);
              if (mysqli_num_rows($result) > 0) {
                while ($row = mysqli_fetch_assoc($result)) {
+
              ?>
               <tr>
                 <th scope="row"><?php echo $row['id'];?></th>
@@ -225,27 +226,34 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <td><?php echo $row['booking_deposit']; ?></td>
                 <td><?php echo $row['booking_status']; ?></td>
                 <td >
-                  <a href="cancel_booking.php?update=<?php echo $row['id']; ?>" class="btn btn-outline-danger" onclick="return confirm('Are you sure want to Cancel the booking on <?php echo $row['booking_date'];?> at <?php echo $row['booking_time'];?> ?');">Cancel Booking</a>
-                  <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verticalycentered" >Cancel Booking </button> -->
-                <div class="modal fade" id="verticalycentered" tabindex="-1">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">Cancel Booking Confirmation</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <!-- <a href="cancel_booking.php?update=<?php echo $row['id']; ?>" class="btn btn-outline-danger" type="submit" id="sendval">Cancel Booking</a> -->
+                  <a href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking</a>
+
+                  <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verticalycentered" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking </button> -->
+
+                  <div class="modal fade" id="verticalycentered" tabindex="-1">
+
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+
+                          <h5 class="modal-title">Cancel Booking Confirmation</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure want to cancel the booking on  <?php echo $row['id']; ?> at <?php echo $row['booking_time']; ?> for <?php echo $row['booking_service']; ?>
+                        </div>
+                        <input type="text" name="appoinment_id" value="<?php echo $row['id']; ?>" id="">
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger">Proceed</button>
+                        </div>
                       </div>
-                      <div class="modal-body">
-                        Are you sure want to cancel the booking on  <?php echo $row["id"]; ?> at <?php echo $row['booking_time']; ?> for <?php echo $row['booking_service']; ?>
-                      </div>
-                      <input type="text" name="appoinment_id" value="<?php echo $row['id']; ?>" id="">
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Proceed</button>
-                      </div>
+
                     </div>
 
                   </div>
-                </div>
+
                 </td>
               </tr>
               <?php
@@ -253,16 +261,36 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
               }
               ?>
             </tbody>
+
+
           </table>
           <!-- End Table with hoverable rows -->
 
         </div>
       </div>
+      <!-- cancel_booking.php?update=<?php echo $row['id']; ?> -->
+
+      <script>
+
+      function confirmFunction(id) {
+
+        var ids= id;
+
+        let person = prompt("Are you sure want to Cancel the booking  "+ ids +" , if yes please enter the reason", " ");
 
 
+        if (person != null) {
+          // alert("Hello! I am an alert box!");
+          // header("Location: pages-login.php");
+          // return;
+          window.location.href = "index.php";
+           // window.location.href = "pages-login.php";
+
+        }
 
 
-
+      }
+      </script>
 
 
 
