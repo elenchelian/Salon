@@ -2,29 +2,27 @@
 require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
+if ( isset($_POST['password']) && isset($_POST['newpassword'])) {
 
-// if ( isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['username']) && isset($_POST['address']) ) {
-//
-//     $FirstName = $_POST['FirstName'];
-//     $LastName = $_POST['LastName'];
-//     $Password = $_POST['Password'];
-//     $hash = md5($Password);
-//     $Username = $_POST['Username'];
-//     $Email = $_POST['Email'];
-//     $Gender = $_POST['Gender'];
-//     $Address = $_POST['Address'];
-//
-//     $stmt = $pdo->prepare("INSERT INTO user (id,firstname,lastname,username,email,gender,address,password,reward_points)VALUES('id','$FirstName','$LastName','$Username','$Email','$Gender','$Address','$hash','175')");
-//     $stmt->execute();
-//
-//
-//   header("Location: pages-login.php");
-//   return;
-// }
+    $password = $_POST['password'];
+    $newpassword = $_POST['newpassword'];
+    $hash = md5($password);
+    $newhash = md5($newpassword);
+    $query = "SELECT * FROM user WHERE email='{$_SESSION["email"]}'and password='$hash'";
+    $result = mysqli_query($conn,$query) ;
+    $rows = mysqli_num_rows($result);
+    $getval = $result->fetch_assoc();
+        if($rows==1){
+        $sql_Update ="UPDATE user SET password='$newhash' WHERE email='{$_SESSION["email"]}'";
+        $result = $conn-> query($sql_Update);
+
+        header("Location: changepass.php");
+         }else{
+        echo'<script>alert("Your Current Password is incorrect !!")</script>';
+    }
+}
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +31,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -71,7 +69,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="dashboard.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Account</span>
       </a>
@@ -346,19 +344,19 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
                     <div class="tab-pane fade pt-3" id="profile-change-password">
                       <!-- Change Password Form -->
-                      <form>
+                      <form method="post" onsubmit="return CheckPassword()">
 
                         <div class="row mb-3">
                           <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                           <div class="col-md-8 col-lg-9">
-                            <input name="password" type="password" class="form-control" id="currentPassword">
+                            <input name="password" type="password" class="form-control" id="password">
                           </div>
                         </div>
 
                         <div class="row mb-3">
                           <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                           <div class="col-md-8 col-lg-9">
-                            <input name="newpassword" type="password" class="form-control" id="newPassword">
+                            <input name="newpassword" type="password" class="form-control" id="newpassword">
                           </div>
                         </div>
 
@@ -370,7 +368,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                         </div>
 
                         <div class="text-center">
-                          <button type="submit" class="btn btn-primary">Change Password</button>
+                          <button type="submit" class="btn btn-primary" >Change Password</button>
                         </div>
                       </form><!-- End Change Password Form -->
 
@@ -391,17 +389,34 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
   </main><!-- End #main -->
   <script >
-  function editfunction(id){
-    var firstname = document.getElementById('firstname').value;
-    var lastname = document.getElementById('lastname').value;
-    var username = document.getElementById('username').value;
-    var address = document.getElementById('address').value;
+  function CheckPassword()
+  {
+    var passw = document.getElementById('newpassword').value;
+    var passw2 = document.getElementById('renewPassword').value;
+    var upper  =/[A-Z]/;
+    var number = /[0-9]/;
 
-    let reason = confirm("Are you sure want save the changes ?"+username+"--"+address+"");
-    if (reason == true) {
-      // alert("trest");
-      window.location.href= "profile_update.php?firstname="+firstname+"&lastname="+lastname+"&username="+username+"&address="+address+"";
-      return true;
+    if(passw.length < 8 || passw.length > 20 || passw != passw2 || !number.test(passw) || !upper.test(passw)) {
+      if(passw.length<8){
+        alert("Please make sure password is longer than 8 characters.")
+        return false;
+      }
+      if(passw.length>20){
+        alert("Please make sure password is shorter than 20 characters.")
+        return false;
+      }
+      if(passw != passw2){
+        alert("Please make sure passwords match.")
+        return false;
+      }
+      if(!number.test(passw)){
+        alert("Please make sure password includes a digit")
+        return false;
+      }
+      if(!upper.test(passw)) {
+        alert("Please make sure password includes an uppercase letter.")
+        return false;
+      }
     }
   }
   </script>

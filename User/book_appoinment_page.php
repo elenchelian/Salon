@@ -40,7 +40,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -78,7 +78,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="dashboard.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Account</span>
       </a>
