@@ -167,11 +167,22 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="reward_page.php">
-          <i class="bi bi-gift"></i>
-          <span>Reward Store</span>
+        <a class="nav-link collapsed" data-bs-target="#reward-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gift"></i><span>Claim Reward</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+        <ul id="reward-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="reward_page.php">
+              <i class="bi bi-circle"></i><span>Reward Store</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Point History</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
 
 
@@ -215,7 +226,9 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                       <i class="bi bi-coin"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?php echo $row['reward_points']; ?></h6>
+                      <h6 id=""><?php echo $row['reward_points']; ?></h6>
+                      <input type="hidden" id="pointsid" value="<?php echo $row['reward_points']; ?>"></input>
+
                     </div>
                   </div>
                 </div>
@@ -227,13 +240,55 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
             </div><!-- End Sales Card -->
 
 
+            <div class="pagetitle" id="menu-starters"style="">
 
+              <div class="row gy-5" >
+                <?php
+                $sql = "SELECT * FROM reward_item where reward_point <='{$_SESSION["getpoint"]}'";
+                $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                 while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                <div class="col-lg-2 menu-item" >
+                  <a href="<?php echo $row['reward_path']; ?>" class="glightbox"><img src="<?php echo $row['reward_path']; ?>" class="menu-img img-fluid" alt=""></a>
+                  <h4 align="center" ><?php echo $row['reward_item']; ?></h4>
+                  <p class="price" align="center" >
+                    <?php echo $row['reward_point']; ?><br><br>
+                    <input type="hidden" id="getemail" value="<?php echo $_SESSION["email"]; ?>"></input>
+                    <button href="" class="btn btn-outline-success" onclick="confirmFunction(<?php echo $row['id']; ?>)">Redeem</button>
+                  </p>
+
+                </div><!-- Menu Item -->
+                <?php
+                  }
+                }
+                ?>
+              </div>
+            </div>
+
+
+            <script>
+
+            function confirmFunction(id) {
+              var ids=id;
+              var emails = document.getElementById('getemail').value;
+              var pointsid = document.getElementById('pointsid').value;
+              // var reward_point = document.getElementById('get_reward_point').value;
+
+              let reason = confirm("Are you sure want to Redeem this item -"+ pointsid +"----"+emails+"");
+              if (reason == true) {
+
+                window.location.href= "redeem_reward.php?update="+ids+"&email="+emails+"&point="+pointsid+"";
+              }
+
+
+            }
+            </script>
 
 
     </section>
 
   </main><!-- End #main -->
-
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

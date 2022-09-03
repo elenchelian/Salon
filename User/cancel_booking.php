@@ -9,9 +9,10 @@
 <body>
 <?php
 $connection = mysqli_connect("localhost", "root", "", "salon");
-if(isset($_GET['update'])){
+if(isset($_GET['update']) && isset($_GET['reason'])){
 $id =$_GET['update'];
-$sql_Update ="UPDATE booking SET booking_status='canceled' WHERE id='$id'";
+$reason = $_GET['reason'];
+$sql_Update ="UPDATE booking SET booking_status='canceled',reason='$reason' WHERE id='$id'";
 $result = $connection-> query($sql_Update);
 }
 ?>

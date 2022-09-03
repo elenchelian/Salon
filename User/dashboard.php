@@ -108,10 +108,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-login.php">
+              <button class="dropdown-item d-flex align-items-center" onclick="JSalert()">
+
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
-              </a>
+              </button>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -165,15 +166,25 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         </ul>
       </li>
 
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="reward_page.php">
-          <i class="bi bi-gift"></i>
-          <span>Reward Store</span>
+        <a class="nav-link collapsed" data-bs-target="#reward-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gift"></i><span>Claim Reward</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+        <ul id="reward-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="reward_page.php">
+              <i class="bi bi-circle"></i><span>Reward Store</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Point History</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-
+      
 
     </ul>
 
@@ -231,7 +242,12 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
     </section>
 
   </main><!-- End #main -->
-
+  <script type="text/javascript">
+  function JSalert(){
+    // session_unset();
+      window.location = "pages-login.php";
+  }
+  </script>
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

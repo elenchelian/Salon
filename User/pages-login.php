@@ -14,6 +14,7 @@ if ( isset($_POST['username']) && isset($_POST['password'])) {
         if($rows==1){
         $_SESSION['email'] = $username;
         $_SESSION['id'] = $getval['id'];
+        $_SESSION['getpoint'] = $getval['reward_points'];
 
         header("Location: dashboard.php");
          }else{

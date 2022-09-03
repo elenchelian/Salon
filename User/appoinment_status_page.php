@@ -167,11 +167,22 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="reward_page.php">
-          <i class="bi bi-gift"></i>
-          <span>Reward Store</span>
+        <a class="nav-link collapsed" data-bs-target="#reward-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gift"></i><span>Claim Reward</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+        <ul id="reward-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="reward_page.php">
+              <i class="bi bi-circle"></i><span>Reward Store</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Point History</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
 
 
@@ -227,7 +238,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <td><?php echo $row['booking_status']; ?></td>
                 <td >
                   <!-- <a href="cancel_booking.php?update=<?php echo $row['id']; ?>" class="btn btn-outline-danger" type="submit" id="sendval">Cancel Booking</a> -->
-                  <a href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking</a>
+                  <button href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking</button>
 
                   <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verticalycentered" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking </button> -->
 
@@ -276,16 +287,12 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
         var ids= id;
 
-        let person = prompt("Are you sure want to Cancel the booking  "+ ids +" , if yes please enter the reason", " ");
+        let reason = prompt("Are you sure want to Cancel the booking  "+ ids +" , if yes please enter the reason", " ");
 
 
-        if (person != null) {
-          // alert("Hello! I am an alert box!");
-          // header("Location: pages-login.php");
-          // return;
-          window.location.href = "index.php";
-           // window.location.href = "pages-login.php";
+        if (reason != null) {
 
+          window.location.href= "cancel_booking.php?update="+ids+"&reason="+reason+"";
         }
 
 

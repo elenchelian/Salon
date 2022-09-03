@@ -193,11 +193,22 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="reward_page.php">
-          <i class="bi bi-gift"></i>
-          <span>Reward Store</span>
+        <a class="nav-link collapsed" data-bs-target="#reward-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gift"></i><span>Claim Reward</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+        <ul id="reward-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="reward_page.php">
+              <i class="bi bi-circle"></i><span>Reward Store</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Point History</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
 
 

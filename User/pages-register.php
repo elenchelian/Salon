@@ -14,7 +14,7 @@ if ( isset($_POST['FirstName']) && isset($_POST['LastName']) && isset($_POST['Us
     $Gender = $_POST['Gender'];
     $Address = $_POST['Address'];
 
-    $stmt = $pdo->prepare("INSERT INTO user (id,firstname,lastname,username,email,gender,address,password)VALUES('id','$FirstName','$LastName','$Username','$Email','$Gender','$Address','$hash')");
+    $stmt = $pdo->prepare("INSERT INTO user (id,firstname,lastname,username,email,gender,address,password,reward_points)VALUES('id','$FirstName','$LastName','$Username','$Email','$Gender','$Address','$hash','175')");
     $stmt->execute();
 
 
