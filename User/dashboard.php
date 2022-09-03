@@ -99,7 +99,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="edit_profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -177,14 +177,14 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="point_history.php">
               <i class="bi bi-circle"></i><span>Point History</span>
             </a>
           </li>
         </ul>
       </li>
 
-      
+
 
     </ul>
 

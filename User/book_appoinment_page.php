@@ -125,7 +125,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="edit_profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -203,7 +203,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="point_history.php">
               <i class="bi bi-circle"></i><span>Point History</span>
             </a>
           </li>

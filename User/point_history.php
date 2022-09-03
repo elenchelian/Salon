@@ -192,11 +192,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Reservation</h1>
+      <h1>Points History</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">Appoinment History</li>
+          <li class="breadcrumb-item">Claim Reward</li>
+          <li class="breadcrumb-item active">Point History</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -205,34 +205,34 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Appoinment History</h5>
+          <h5 class="card-title">Points History</h5>
 
           <!-- Table with hoverable rows -->
           <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">No</th>
-                <th scope="col">Service Name</th>
-                <th scope="col">Booking Date</th>
-                <th scope="col">Booking Time</th>
-                <th scope="col">Booking Deposit</th>
-                <th scope="col">Booking Status</th>
+                <th scope="col">Service</th>
+                <th scope="col">Redeem Item</th>
+                <th scope="col">Points</th>
+                <th scope="col">Date</th>
+
               </tr>
             </thead>
             <tbody>
               <?php
-             $sql = "SELECT * FROM booking where booking_email='{$_SESSION["email"]}' ";
+             $sql = "SELECT * FROM reward_point where email='{$_SESSION["email"]}' ";
              $result = mysqli_query($conn, $sql);
              if (mysqli_num_rows($result) > 0) {
                while ($row = mysqli_fetch_assoc($result)) {
              ?>
               <tr>
                 <th scope="row"><?php echo $row['id']; ?></th>
-                <td><?php echo $row['booking_service']; ?></td>
-                <td><?php echo $row['booking_date']; ?></td>
-                <td><?php echo $row['booking_time']; ?></td>
-                <td><?php echo $row['booking_deposit']; ?></td>
-                <td><?php echo $row['booking_status']; ?></td>
+                <td><?php echo $row['service']; ?></td>
+                <td><?php echo $row['redeem_item']; ?></td>
+                <td><?php echo $row['points']; ?></td>
+                <td><?php echo $row['date']; ?></td>
+
               </tr>
               <?php
                 }
