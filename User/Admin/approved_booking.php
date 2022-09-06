@@ -269,7 +269,7 @@ if (mysqli_num_rows($result) > 0) {
         </a>
         <ul id="manage_reward" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="book_appoinment_page.php">
+            <a href="add_reward.php">
               <i class="bi bi-circle"></i><span>Add Reward</span>
             </a>
           </li>

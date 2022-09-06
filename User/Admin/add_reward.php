@@ -3,22 +3,17 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && isset($_POST['service_price']) && isset($_POST['service_desc'])  ) {
-
-    $service_name = $_POST['service_name'];
-    $service_categories = $_POST['service_categories'];
-    $service_price = $_POST['service_price'];
-    $service_desc = $_POST['service_desc'];
-
-
-
-    $stmt = $pdo->prepare("INSERT INTO service (id,service_name,service_price,service_cat,service_desc)VALUES('id','$service_name','RM$service_price','$service_categories','$service_desc')");
-    $stmt->execute();
-
-
-  header("Location: Jquery/add_service.php");
-  return;
+$sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
+$result = mysqli_query($conn, $sql);
+$jsonArray = array();
+$rows_num=mysqli_num_rows($result);
+$data_array='';
+if (mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_assoc($result)) {
+    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
+  }
 }
+// $data_array=substr($data_array,0,-2);
 
 ?>
 
@@ -305,8 +300,8 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Manage Service</li>
-          <li class="breadcrumb-item active">Add Service</li>
+          <li class="breadcrumb-item">Reward</li>
+          <li class="breadcrumb-item active">Add Reward</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -315,58 +310,14 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-11">
           <div class="row">
 
 
-            <form class="row g-3" method="post" onsubmit="return CheckPassword()">
-              <div class="col-md-12">
-
-
-              <div class="col-12">
-                <label for="inputPhoneNumber" class="form-label">Service Name</label>
-                <input type="text" class="form-control" id="service_name" placeholder="Please, Enter your Service Name" name="service_name" required>
-                  <div class="invalid-feedback">Please, Enter your Service Name</div>
-              </div>
-              <br>
-
-              <div class="col-12">
-                <label class="form-label">Select Service Categories</label>
-                <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name="service_categories" required>
-                    <option value="Hair_Care">Hair Care</option>
-                    <option value="Skin_Care">Skin Care</option>
-                    <option value="Nail_Care">Nail Care</option>
-                  </select>
-                </div>
-              </div>
-              <br>
-
-              <div class="col-12">
-                <label for="inputPhoneNumber" class="form-label">Service Price</label>
-                <input type="text" class="form-control" id="service_price"  placeholder="Please, Enter your Service Price" name="service_price" required>
-                  <div class="invalid-feedback">Please, Enter your Service Price</div>
-              </div>
-              <br>
-
-              <div class="col-12">
-                <label for="inputPhoneNumber" class="form-label">Service Description</label>
-
-                  <textarea name="service_desc" class="form-control" id="service_desc" style="height: 100px"  placeholder="Please, Enter your Service Description"required></textarea>
-                  <div class="invalid-feedback">Please, Enter your Service Description</div>
-              </div>
-              <br>
-
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
-              </div>
-            </form>
-
 
           </div>
-        </div>
-      </div>
+          </div>
+          </div>
 
 
 
@@ -374,10 +325,22 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
     </section>
 
   </main><!-- End #main -->
-  <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
+
+  <script>
+
+  function confirmFunction(id) {
+
+    var ids= id;
+
+    let reason = confirm("Are you sure want to delete this reward "+ ids +" ." );
+
+
+    if (reason == true) {
+
+      window.location.href= "Jquery/delete_reward.php?update="+ids+"";
+    }
+
+
   }
   </script>
 
