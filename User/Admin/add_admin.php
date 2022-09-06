@@ -3,17 +3,21 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-$sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-$result = mysqli_query($conn, $sql);
-$jsonArray = array();
-$rows_num=mysqli_num_rows($result);
-$data_array='';
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
-  }
+if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_POST['admin_username'])  ) {
+
+    $Email = $_POST['admin_email'];
+    $Username = $_POST['admin_username'];
+    $Password = $_POST['admin_password'];
+    $hash = md5($Password);
+
+
+    $stmt = $pdo->prepare("INSERT INTO admin_user (id,email,password,username)VALUES('id','$Email','$hash','$Username')");
+    $stmt->execute();
+
+
+  header("Location: Jquery/add_admin_success.php");
+  return;
 }
-// $data_array=substr($data_array,0,-2);
 
 ?>
 
@@ -196,7 +200,7 @@ if (mysqli_num_rows($result) > 0) {
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="admin_dashboard.php">
+        <a class="nav-link collapsed" href="dashboard.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -295,8 +299,8 @@ if (mysqli_num_rows($result) > 0) {
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home</li>
-          <li class="breadcrumb-item active">Admin Dashboard</li>
+          <li class="breadcrumb-item">Manage Admin</li>
+          <li class="breadcrumb-item active">Add Admin</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -308,213 +312,41 @@ if (mysqli_num_rows($result) > 0) {
         <div class="col-lg-8">
           <div class="row">
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-                <?php
+            <div class="tab-pane fade show active profile-overview" id="profile-change-password">
+              <!-- Change Password Form -->
+              <br>
+              <form method="post" onsubmit="return CheckPassword()">
 
-                $sql = "SELECT COUNT(*)FROM booking ;";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="card-body">
-                  <h5 class="card-title">Reservation <h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $row['COUNT(*)']; ?></h6>
-                      <span class="text-primary small pt-1 fw-bold">Total number of reservation</span>
-
-                    </div>
+                <div class="row mb-3">
+                  <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Admin Email</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="admin_email" type="text" class="form-control" id="admin_email" required>
                   </div>
                 </div>
-                <?php
-                  }
-                }
-                ?>
-              </div>
-            </div><!-- End Sales Card -->
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card customers-card">
-                <?php
-
-                $sql = "SELECT COUNT(*)FROM booking WHERE booking_status='canceled';";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="card-body">
-                  <h5 class="card-title">Cancellation <h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $row['COUNT(*)']; ?></h6>
-                      <span class="text-danger small pt-1 fw-bold">Total number Reservartion Canceled</span>
-
-                    </div>
+                <div class="row mb-3">
+                  <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Admin Password</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="admin_password" type="password" class="form-control" id="admin_password" required>
                   </div>
                 </div>
-                <?php
-                  }
-                }
-                ?>
-              </div>
-            </div><!-- End Sales Card -->
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-                <?php
-
-                $sql = "SELECT COUNT(*)FROM user ;";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="card-body">
-                  <h5 class="card-title">Users <h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $row['COUNT(*)']; ?></h6>
-                      <span class="text-success small pt-1 fw-bold">Total number of users Registered</span>
-
-                    </div>
+                <div class="row mb-3">
+                  <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Admin Username</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="admin_username" type="text" class="form-control" id="admin_username" required>
                   </div>
                 </div>
-                <?php
-                  }
-                }
-                ?>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" >Add Admin</button>
+                </div>
+              </form><!-- End Change Password Form -->
+
+            </div>
               </div>
-            </div><!-- End Sales Card -->
-
-
-
-
-            <!-- Website Traffic -->
-            <div class="card">
-
-              <div class="card-body pb-0">
-                <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-                <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-                <?php
-
-                $sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-                $result = mysqli_query($conn, $sql);
-                $jsonArray = array();
-                $rows_num=mysqli_num_rows($result);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    // $jsonArrayItem = array();
-                    // $jsonArrayItem['service'] = $row['booking_service'];
-                    // // $jsonArrayItem['count'] = $row['COUNT(*)'];
-                    //
-                    // array_push($jsonArray, $jsonArrayItem);
-                    //
-                    // }
-                    //   $arr=json_encode($jsonArray);
-                    //   echo $arr;
-
-                ?>
-
-                <!-- <input  id="pointsid" value="<?php echo $row['booking_service']; ?>" ></input> -->
-
-                <script>
-                // var ary =JSON.stringify(Num) ;
-
-                var arr =[];
-                // arr.push("<?php echo $row['booking_service']; ?>");
-                //
-                //
-
-                // var items = '<?php echo $row['booking_service']; ?>';
-                // var itemsC = '<?php echo $row['COUNT(*)']; ?>';
-                // var rownum = '<?php echo $rows_num; ?>';
-
-                // var count = 0;
-                // for(i=0;i<rownum;i++){
-                //
-                //   ary.push(items);
-                //   aryC.push(itemsC);
-                // }
-
-                // ary.push(items);
-                // aryC.push(itemsC);
-                  // alert('--'+<?php echo $data_array; ?>+'');
-
-                  document.addEventListener("DOMContentLoaded", () => {
-                    echarts.init(document.querySelector("#trafficChart")).setOption({
-                      tooltip: {
-                        trigger: 'item'
-                      },
-                      legend: {
-                        top: '5%',
-                        left: 'center'
-                      },
-                      series: [{
-                        name: 'Access From',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                          show: false,
-                          position: 'center'
-                        },
-                        emphasis: {
-                          label: {
-                            show: true,
-                            fontSize: '18',
-                            fontWeight: 'bold'
-                          }
-                        },
-                        labelLine: {
-                          show: false
-                        },
-                        data: [{
-                            value: 23,
-                            name: 'Facial spa',
-                          },
-                          {
-                            value: 54,
-                            name: 'Hair Cut',
-                            },
-                            {
-                              value: 23,
-                              name: 'Hair Wash & Blow',
-                              },
-                              {
-                                value: 34,
-                                name: 'Manicure',
-                                }
-
-                        ]
-                      }
-                    ]
-
-                    });
-                  });
-                </script>
-                <?php
-                  }
-                }
-                ?>
-
-              </div>
-
-            </div><!-- End Website Traffic -->
+                </div>
+                  </div>
 
 
 
