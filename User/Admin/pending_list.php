@@ -251,12 +251,12 @@ if (mysqli_num_rows($result) > 0) {
             </a>
           </li>
           <li>
-            <a href="book_appoinment_page.php">
-              <i class="bi bi-circle"></i><span>List of Reservation</span>
+            <a href="approved_booking.php">
+              <i class="bi bi-circle"></i><span>List of Approved Reservation</span>
             </a>
           </li>
           <li>
-            <a href="appoinment_status_page.php">
+            <a href="booking_canceled.php">
               <i class="bi bi-circle"></i><span>List of Cancellation</span>
             </a>
           </li>
@@ -274,7 +274,7 @@ if (mysqli_num_rows($result) > 0) {
             </a>
           </li>
           <li>
-            <a href="appoinment_status_page.php">
+            <a href="manage_reward.php">
               <i class="bi bi-circle"></i><span>Manage Reward</span>
             </a>
           </li>
@@ -300,8 +300,8 @@ if (mysqli_num_rows($result) > 0) {
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Manage Service</li>
-          <li class="breadcrumb-item active">Service List</li>
+          <li class="breadcrumb-item">Manage Reservation</li>
+          <li class="breadcrumb-item active">Pending Reservation</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -315,7 +315,7 @@ if (mysqli_num_rows($result) > 0) {
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Service List</h5>
+                <h5 class="card-title">Pending Reservation</h5>
 
                 <!-- Table with hoverable rows -->
                 <table class="table table-hover">

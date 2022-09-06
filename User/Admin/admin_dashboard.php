@@ -251,12 +251,12 @@ if (mysqli_num_rows($result) > 0) {
             </a>
           </li>
           <li>
-            <a href="book_appoinment_page.php">
-              <i class="bi bi-circle"></i><span>List of Reservation</span>
+            <a href="approved_booking.php">
+              <i class="bi bi-circle"></i><span>List of Approved Reservation</span>
             </a>
           </li>
           <li>
-            <a href="appoinment_status_page.php">
+            <a href="booking_canceled.php">
               <i class="bi bi-circle"></i><span>List of Cancellation</span>
             </a>
           </li>
@@ -274,7 +274,7 @@ if (mysqli_num_rows($result) > 0) {
             </a>
           </li>
           <li>
-            <a href="appoinment_status_page.php">
+            <a href="manage_reward.php">
               <i class="bi bi-circle"></i><span>Manage Reward</span>
             </a>
           </li>

@@ -3,21 +3,17 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_POST['admin_username'])  ) {
-
-    $Email = $_POST['admin_email'];
-    $Username = $_POST['admin_username'];
-    $Password = $_POST['admin_password'];
-    $hash = md5($Password);
-
-
-    $stmt = $pdo->prepare("INSERT INTO admin_user (id,email,password,username)VALUES('id','$Email','$hash','$Username')");
-    $stmt->execute();
-
-
-  header("Location: Jquery/add_admin_success.php");
-  return;
+$sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
+$result = mysqli_query($conn, $sql);
+$jsonArray = array();
+$rows_num=mysqli_num_rows($result);
+$data_array='';
+if (mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_assoc($result)) {
+    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
+  }
 }
+// $data_array=substr($data_array,0,-2);
 
 ?>
 
@@ -200,7 +196,7 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="dashboard.php">
+        <a class="nav-link collapsed" href="admin_dashboard.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -304,8 +300,8 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Manage Admin</li>
-          <li class="breadcrumb-item active">Add Admin</li>
+          <li class="breadcrumb-item">Reward</li>
+          <li class="breadcrumb-item active">Manage Reward</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -314,44 +310,56 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-11">
           <div class="row">
 
-            <div class="tab-pane fade show active profile-overview" id="profile-change-password">
-              <!-- Change Password Form -->
-              <br>
-              <form method="post" onsubmit="return CheckPassword()">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Reward List</h5>
 
-                <div class="row mb-3">
-                  <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Admin Email</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="admin_email" type="text" class="form-control" id="admin_email" required>
-                  </div>
-                </div>
+                <!-- Table with hoverable rows -->
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">No</th>
+                      <th scope="col">Reward Name</th>
+                      <th scope="col">Reward Points</th>
+                      <th scope="col">Reward Image</th>
+                      <th scope="col">Delete Reward</th>
 
-                <div class="row mb-3">
-                  <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Admin Password</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="admin_password" type="password" class="form-control" id="admin_password" required>
-                  </div>
-                </div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                   $sql = "SELECT * FROM reward_item;";
+                   $result = mysqli_query($conn, $sql);
+                   if (mysqli_num_rows($result) > 0) {
+                     while ($row = mysqli_fetch_assoc($result)) {
+                   ?>
+                    <tr>
+                      <th scope="row"><?php echo $row['id']; ?></th>
+                      <td><?php echo $row['reward_item']; ?></td>
+                      <td><?php echo $row['reward_point']; ?></td>
+                      <td><img src="../<?php echo $row['reward_path']; ?>" height="70px" width="70px"class="menu-img img-fluid" alt=""></td>
+                      <td>
+                        <button href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Delete Reward</button>
 
-                <div class="row mb-3">
-                  <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Admin Username</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="admin_username" type="text" class="form-control" id="admin_username" required>
-                  </div>
-                </div>
+                      </td>
+                    </tr>
+                    <?php
+                      }
+                    }
+                    ?>
+                  </tbody>
+                </table>
+                <!-- End Table with hoverable rows -->
 
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary" >Add Admin</button>
-                </div>
-              </form><!-- End Change Password Form -->
-
-            </div>
               </div>
-                </div>
-                  </div>
+            </div>
+
+          </div>
+          </div>
+          </div>
 
 
 
@@ -359,10 +367,22 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
     </section>
 
   </main><!-- End #main -->
-  <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
+
+  <script>
+
+  function confirmFunction(id) {
+
+    var ids= id;
+
+    let reason = confirm("Are you sure want to delete this reward "+ ids +" ." );
+
+
+    if (reason == true) {
+
+      window.location.href= "Jquery/delete_reward.php?update="+ids+"";
+    }
+
+
   }
   </script>
 
