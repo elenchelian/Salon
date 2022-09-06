@@ -246,6 +246,11 @@ if (mysqli_num_rows($result) > 0) {
         </a>
         <ul id="manage_reservation" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="pending_list.php">
+              <i class="bi bi-circle"></i><span>List of Pending Reservation</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>List of Reservation</span>
             </a>

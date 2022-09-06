@@ -246,6 +246,11 @@ if (mysqli_num_rows($result) > 0) {
         </a>
         <ul id="manage_reservation" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="pending_list.php">
+              <i class="bi bi-circle"></i><span>List of Pending Reservation</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>List of Reservation</span>
             </a>
@@ -295,8 +300,8 @@ if (mysqli_num_rows($result) > 0) {
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home</li>
-          <li class="breadcrumb-item active">Admin Dashboard</li>
+          <li class="breadcrumb-item">Manage Service</li>
+          <li class="breadcrumb-item active">Service List</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -305,8 +310,54 @@ if (mysqli_num_rows($result) > 0) {
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-11">
           <div class="row">
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Service List</h5>
+
+                <!-- Table with hoverable rows -->
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">No</th>
+                      <th scope="col">Service Name</th>
+                      <th scope="col">Service Categories</th>
+                      <th scope="col">Service Price</th>
+                      <th scope="col">Service Description</th>
+                      <th scope="col">Delete Service</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                   $sql = "SELECT * FROM service;";
+                   $result = mysqli_query($conn, $sql);
+                   if (mysqli_num_rows($result) > 0) {
+                     while ($row = mysqli_fetch_assoc($result)) {
+                   ?>
+                    <tr>
+                      <th scope="row"><?php echo $row['id']; ?></th>
+                      <td><?php echo $row['service_name']; ?></td>
+                      <td><?php echo $row['service_cat']; ?></td>
+                      <td><?php echo $row['service_price']; ?></td>
+                      <td><?php echo $row['service_desc']; ?></td>
+                      <td>
+                        <button href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Delete Service</button>
+
+                      </td>
+                    </tr>
+                    <?php
+                      }
+                    }
+                    ?>
+                  </tbody>
+                </table>
+                <!-- End Table with hoverable rows -->
+
+              </div>
+            </div>
 
           </div>
           </div>
@@ -318,10 +369,22 @@ if (mysqli_num_rows($result) > 0) {
     </section>
 
   </main><!-- End #main -->
-  <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
+
+  <script>
+
+  function confirmFunction(id) {
+
+    var ids= id;
+
+    let reason = confirm("Are you sure want to delete this service "+ ids +" ." );
+
+
+    if (reason == true) {
+
+      window.location.href= "Jquery/delete_service.php?update="+ids+"";
+    }
+
+
   }
   </script>
 

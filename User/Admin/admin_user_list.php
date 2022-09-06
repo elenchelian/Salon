@@ -246,6 +246,11 @@ if (mysqli_num_rows($result) > 0) {
         </a>
         <ul id="manage_reservation" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="pending_list.php">
+              <i class="bi bi-circle"></i><span>List of Pending Reservation</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>List of Reservation</span>
             </a>
@@ -310,7 +315,7 @@ if (mysqli_num_rows($result) > 0) {
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Appoinment History</h5>
+                <h5 class="card-title">Admin User List</h5>
 
                 <!-- Table with hoverable rows -->
                 <table class="table table-hover">
