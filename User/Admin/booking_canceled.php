@@ -282,12 +282,22 @@ if (mysqli_num_rows($result) > 0) {
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="dashboard.php">
-          <i class="bi bi-credit-card"></i>
-          <span>Payment</span>
+        <a class="nav-link collapsed" data-bs-target="#manage_payment" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-credit-card"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="manage_payment" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="payment_list.php">
+              <i class="bi bi-circle"></i><span>Approve Payment</span>
+            </a>
+          </li>
+          <li>
+            <a href="complete_payment.php">
+              <i class="bi bi-circle"></i><span>Completed Payment</span>
+            </a>
+          </li>
+        </ul>
       </li>
-
 
 
     </ul>

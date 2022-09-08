@@ -3,17 +3,26 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-$sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-$result = mysqli_query($conn, $sql);
-$jsonArray = array();
-$rows_num=mysqli_num_rows($result);
-$data_array='';
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
-  }
-}
-// $data_array=substr($data_array,0,-2);
+if(isset($_POST["uploadfile"]) && isset($_POST["reward_name"]) && isset($_POST["reward_point"])){
+  // if($_FILES['uploadfile']['size'] != 0){
+
+      $reward_name = $_POST["reward_name"];
+      $reward_point = $_POST["reward_point"];
+      $file = $_FILES["uploadfile"];
+
+      $filename ="assets/reward_item".$file["name"];
+      if( move_uploaded_file($file["tmp_name"],"assets/reward_item/".$file["name"]))
+{
+          $stmt = $pdo->prepare("INSERT INTO reward_item (id,reward_item,reward_point,reward_path)VALUES('id','$reward_name','$reward_point','$filename')");
+          $stmt->execute();
+
+
+        header("Location: manage_reward.php");
+        return;
+      }
+      }
+
+      ?>
 
 ?>
 
@@ -282,10 +291,21 @@ if (mysqli_num_rows($result) > 0) {
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="dashboard.php">
-          <i class="bi bi-credit-card"></i>
-          <span>Payment</span>
+        <a class="nav-link collapsed" data-bs-target="#manage_payment" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-credit-card"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="manage_payment" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="payment_list.php">
+              <i class="bi bi-circle"></i><span>Approve Payment</span>
+            </a>
+          </li>
+          <li>
+            <a href="complete_payment.php">
+              <i class="bi bi-circle"></i><span>Completed Payment</span>
+            </a>
+          </li>
+        </ul>
       </li>
 
 
@@ -313,6 +333,38 @@ if (mysqli_num_rows($result) > 0) {
         <div class="col-lg-11">
           <div class="row">
 
+            <form class="row g-3" method="post" onsubmit="return CheckPassword()">
+              <div class="col-md-12">
+
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Reward Name</label>
+                <input type="text" class="form-control" id="reward_name" placeholder="Please, enter your reward name" name="reward_name" required>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+              <br>
+
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Reward Points</label>
+                <input type="text" class="form-control" id="reward_point"  placeholder="Please, enter your reward points" name="reward_point" required>
+                  <div class="invalid-feedback">Please, Enter your Service Price</div>
+              </div>
+              <br>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Upload Your Image</label><br>
+                  <input class="btn btn-success" type="file" id="uploadfile" onchange="loadFile(event)" name="uploadfile" accept="image/*">
+                  <div class="invalid-feedback">Please, Enter your Service Price</div>
+              </div>
+
+
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </form>
 
 
           </div>
@@ -330,14 +382,15 @@ if (mysqli_num_rows($result) > 0) {
 
   function confirmFunction(id) {
 
-    var ids= id;
 
-    let reason = confirm("Are you sure want to delete this reward "+ ids +" ." );
+    var filename = document.getElementById('file').value;
+
+    let reason = confirm("Are you sure want to delete this reward "+ filename +" ." );
 
 
     if (reason == true) {
 
-      window.location.href= "Jquery/delete_reward.php?update="+ids+"";
+      // window.location.href= "Jquery/delete_reward.php?update="+ids+"";
     }
 
 

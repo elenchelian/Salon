@@ -12,7 +12,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
 
 
 
-    $stmt = $pdo->prepare("INSERT INTO service (id,service_name,service_price,service_cat,service_desc)VALUES('id','$service_name','RM$service_price','$service_categories','$service_desc')");
+    $stmt = $pdo->prepare("INSERT INTO service (id,service_name,service_price,service_cat,service_desc)VALUES('id','$service_name','$service_price','$service_categories','$service_desc')");
     $stmt->execute();
 
 
@@ -287,10 +287,21 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="dashboard.php">
-          <i class="bi bi-credit-card"></i>
-          <span>Payment</span>
+        <a class="nav-link collapsed" data-bs-target="#manage_payment" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-credit-card"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="manage_payment" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="payment_list.php">
+              <i class="bi bi-circle"></i><span>Approve Payment</span>
+            </a>
+          </li>
+          <li>
+            <a href="complete_payment.php">
+              <i class="bi bi-circle"></i><span>Completed Payment</span>
+            </a>
+          </li>
+        </ul>
       </li>
 
 
@@ -355,12 +366,14 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
                   <textarea name="service_desc" class="form-control" id="service_desc" style="height: 100px"  placeholder="Please, Enter your Service Description"required></textarea>
                   <div class="invalid-feedback">Please, Enter your Service Description</div>
               </div>
-              <br>
 
+              <div class="class="col-12"">
               <div class="text-center">
+                <br>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
               </div>
+            </div>
             </form>
 
 

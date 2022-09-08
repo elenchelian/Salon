@@ -311,8 +311,8 @@ if (mysqli_num_rows($result) > 0) {
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Manage Admin</li>
-          <li class="breadcrumb-item active">Admin List</li>
+          <li class="breadcrumb-item">Payment</li>
+          <li class="breadcrumb-item active">Payment List</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -321,53 +321,63 @@ if (mysqli_num_rows($result) > 0) {
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-11">
           <div class="row">
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Admin User List</h5>
+                <h5 class="card-title">Payment List</h5>
 
                 <!-- Table with hoverable rows -->
                 <table class="table table-hover">
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col">Admin Email</th>
-                      <th scope="col">Admin Username</th>
+                      <th scope="col">Customer Name</th>
+                      <th scope="col">Service Name</th>
+                      <th scope="col">Booking Date</th>
+                      <th scope="col">Booking Time</th>
+                      <th scope="col">Phone Number</th>
+                      <th scope="col">Payment</th>
+
 
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                   $sql = "SELECT * FROM admin_user;";
+                   $sql = "SELECT * FROM booking where booking_status='accepted' ";
                    $result = mysqli_query($conn, $sql);
                    if (mysqli_num_rows($result) > 0) {
                      while ($row = mysqli_fetch_assoc($result)) {
+
                    ?>
                     <tr>
-                      <th scope="row"><?php echo $row['id']; ?></th>
-                      <td><?php echo $row['email']; ?></td>
-                      <td><?php echo $row['username']; ?></td>
-
+                      <th scope="row"><?php echo $row['id'];?></th>
+                      <td><?php echo $row['firstname']; ?></td>
+                      <td><?php echo $row['booking_service']; ?></td>
+                      <td><?php echo $row['booking_date']; ?></td>
+                      <td><?php echo $row['booking_time']; ?></td>
+                      <td><?php echo $row['booking_phone_num']; ?></td>
+                      <td>
+                        <button href="" class="btn btn-outline-success" onclick="acceptbooking(<?php echo $row['id'];?>)">Approve</button>
+                      </td>
                     </tr>
                     <?php
                       }
                     }
                     ?>
                   </tbody>
+
+
                 </table>
                 <!-- End Table with hoverable rows -->
 
               </div>
             </div>
 
-
-            </div>
           </div>
-        </div>
-
-
+          </div>
+          </div>
 
 
 
@@ -375,10 +385,16 @@ if (mysqli_num_rows($result) > 0) {
     </section>
 
   </main><!-- End #main -->
-  <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
+
+  <script>
+
+  function acceptbooking(id) {
+
+    var ids= id;
+    window.location.href= "approve_payment.php?update="+ids+"";
+    
+
+
   }
   </script>
 

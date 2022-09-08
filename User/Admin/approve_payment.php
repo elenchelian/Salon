@@ -3,17 +3,37 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-$sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-$result = mysqli_query($conn, $sql);
-$jsonArray = array();
-$rows_num=mysqli_num_rows($result);
-$data_array='';
+
+if(isset($_GET['update']) ){
+$id =$_GET['update'];
+
+$sql_select ="SELECT * from booking WHERE id='$id'";
+$result = mysqli_query($conn, $sql_select);
 if (mysqli_num_rows($result) > 0) {
   while ($row = mysqli_fetch_assoc($result)) {
-    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
+    $booking_name=  $row['firstname'];
+    $booking_service=  $row['booking_service'];
+    $booking_email=  $row['booking_email'];
+    $booking_date=  $row['booking_date'];
+    $booking_time=  $row['booking_time'];
+    $booking_phone=  $row['booking_phone_num'];
+    $booking_deposit=  $row['booking_deposit'];
+
+    $sql_select_price ="SELECT * from service WHERE service_name='$booking_service'";
+    $result = mysqli_query($conn, $sql_select_price);
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $totalprice = $row['service_price'];
+        $balance = $totalprice-$booking_deposit;
+      }
+    }
+
   }
 }
-// $data_array=substr($data_array,0,-2);
+
+}
+
+
 
 ?>
 
@@ -311,63 +331,81 @@ if (mysqli_num_rows($result) > 0) {
       <h1>Admin Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Manage Admin</li>
-          <li class="breadcrumb-item active">Admin List</li>
+          <li class="breadcrumb-item">Payment</li>
+          <li class="breadcrumb-item active">Approve Payment</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
+      <!-- <div class="row"> -->
 
         <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
+            <form class="row g-3" method="post" onsubmit="return acceptbooking(<?php echo $row['id'];?>)">
+              <div class="col-md-12">
 
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Admin User List</h5>
 
-                <!-- Table with hoverable rows -->
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Admin Email</th>
-                      <th scope="col">Admin Username</th>
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                   $sql = "SELECT * FROM admin_user;";
-                   $result = mysqli_query($conn, $sql);
-                   if (mysqli_num_rows($result) > 0) {
-                     while ($row = mysqli_fetch_assoc($result)) {
-                   ?>
-                    <tr>
-                      <th scope="row"><?php echo $row['id']; ?></th>
-                      <td><?php echo $row['email']; ?></td>
-                      <td><?php echo $row['username']; ?></td>
-
-                    </tr>
-                    <?php
-                      }
-                    }
-                    ?>
-                  </tbody>
-                </table>
-                <!-- End Table with hoverable rows -->
-
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Service Name</label>
+                <input type="text" class="form-control" id="service_name" placeholder="Please, Enter your Service Name" name="service_name" value="<?php echo $booking_service; ?>" disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
               </div>
-            </div>
 
 
-            </div>
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="first_name" placeholder="Please, Enter your First Name" name="first_name" value="<?php echo $booking_name; ?>"disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Booking Email</label>
+                <input type="text" class="form-control" id="booking_email" placeholder="Please, Enter your First Name" name="booking_email" value="<?php echo $booking_email; ?>"disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Booking Date</label>
+                <input type="text" class="form-control" id="booking_date" placeholder="Please, Enter your First Name" name="booking_date" value="<?php echo $booking_date; ?>" disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Booking Time</label>
+                <input type="text" class="form-control" id="booking_time" placeholder="Please, Enter your First Name" name="booking_time" value="<?php echo $booking_time; ?>" disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Booking Phone Number</label>
+                <input type="text" class="form-control" id="booking_phone" placeholder="Please, Enter your First Name" name="booking_phone" value="<?php echo $booking_phone; ?>" disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Booking Deposit</label>
+                <input type="text" class="form-control" id="booking_deposit" placeholder="Please, Enter your First Name" name="booking_deposit" value="RM <?php echo $booking_deposit; ?>" disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="col-12">
+                <label for="inputPhoneNumber" class="form-label">Balance Payment</label>
+                <input type="text" class="form-control" id="booking_payment" placeholder="Please, Enter your First Name" name="booking_payment" value="RM <?php echo $balance; ?>"disabled>
+                  <div class="invalid-feedback">Please, Enter your Service Name</div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" >Submit</button>
+                <!-- <button type="reset" class="btn btn-secondary">Reset</button> -->
+              </div>
+            </form>
+
+
           </div>
         </div>
-
-
+      </div>
 
 
 
@@ -376,9 +414,12 @@ if (mysqli_num_rows($result) > 0) {
 
   </main><!-- End #main -->
   <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
+  function acceptbooking(id) {
+    var ids= id;
+    let reason = confirm("Are you sure want to complete this payment "+ ids +" ." );
+    if (reason == true) {
+      // window.location.href= "Jquery/approve_paymentj.php?update="+ids+"&payment="<?php echo $totalprice; ?>"&email="<?php echo $booking_email; ?>"";
+    }
   }
   </script>
 

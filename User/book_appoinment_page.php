@@ -248,11 +248,15 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
                    while ($row = mysqli_fetch_assoc($result)) {
                  ?>
                 <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
+                <!-- <input type="text" class="form-control" id="inputDate" name="service_price" value="<?php echo $row['service_price']; ?>" hidden> -->
+
                 <?php
                   }
                 }
                 ?>
+
                 </select>
+
 
               </div>
 

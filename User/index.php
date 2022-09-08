@@ -190,7 +190,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                   <?php echo $row['service_desc']; ?>
                 </p>
                 <p class="price">
-                  <?php echo $row['service_price']; ?>
+                  RM<?php echo $row['service_price']; ?>
                 </p>
               </div><!-- Menu Item -->
               <?php
@@ -222,7 +222,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                   <?php echo $row['service_desc']; ?>
                 </p>
                 <p class="price">
-                  <?php echo $row['service_price']; ?>
+                  RM<?php echo $row['service_price']; ?>
                 </p>
               </div><!-- Menu Item -->
               <?php
@@ -253,7 +253,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                   <?php echo $row['service_desc']; ?>
                 </p>
                 <p class="price">
-                  <?php echo $row['service_price']; ?>
+                  RM<?php echo $row['service_price']; ?>
                 </p>
               </div><!-- Menu Item -->
               <?php
