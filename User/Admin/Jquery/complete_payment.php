@@ -18,12 +18,13 @@ $sql = "SELECT * FROM user where email='$email' ";
 $result = mysqli_query($connection, $sql);
 if (mysqli_num_rows($result) > 0) {
   while ($row = mysqli_fetch_assoc($result)) {
-    $current_points=  $row['reward_point'];
-    $latest_points = $current_points+75;
+    $current_points=  $row['reward_points']+75;
+    $add_points= 75;
+    // $latest_points = $current_points+75;
 
       $sql_Update ="UPDATE booking SET booking_deposit='$payment',booking_status='completed' WHERE id='$id'";
       $result = $connection-> query($sql_Update);
-      $sql_point ="UPDATE user SET reward_point='$latest_points'WHERE booking_email='$email'";
+      $sql_point ="UPDATE user SET reward_points='$current_points'WHERE email='$email'";
       $result = $connection-> query($sql_point);
     }
   }

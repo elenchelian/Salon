@@ -24,7 +24,7 @@ if(isset($_POST["uploadfile"]) && isset($_POST["reward_name"]) && isset($_POST["
 
       ?>
 
-?>
+
 
 
 <!DOCTYPE html>

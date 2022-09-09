@@ -344,7 +344,7 @@ if (mysqli_num_rows($result) > 0) {
                   </thead>
                   <tbody>
                     <?php
-                   $sql = "SELECT * FROM booking where booking_status='accepted' ";
+                   $sql = "SELECT * FROM booking where booking_status='completed' ";
                    $result = mysqli_query($conn, $sql);
                    if (mysqli_num_rows($result) > 0) {
                      while ($row = mysqli_fetch_assoc($result)) {

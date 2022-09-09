@@ -362,6 +362,7 @@ if (mysqli_num_rows($result) > 0) {
                         <button href="" class="btn btn-outline-success" onclick="acceptbooking(<?php echo $row['id'];?>)">Approve</button>
                       </td>
                     </tr>
+
                     <?php
                       }
                     }
@@ -392,8 +393,6 @@ if (mysqli_num_rows($result) > 0) {
 
     var ids= id;
     window.location.href= "approve_payment.php?update="+ids+"";
-    
-
 
   }
   </script>

@@ -356,7 +356,6 @@ if (mysqli_num_rows($result) > 0) {
                       <td><?php echo $row['service_desc']; ?></td>
                       <td>
                         <button href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Delete Service</button>
-
                       </td>
                     </tr>
                     <?php

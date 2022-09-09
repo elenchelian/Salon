@@ -4,37 +4,6 @@ session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
 
-if(isset($_GET['update']) ){
-$id =$_GET['update'];
-
-$sql_select ="SELECT * from booking WHERE id='$id'";
-$result = mysqli_query($conn, $sql_select);
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    $booking_name=  $row['firstname'];
-    $booking_service=  $row['booking_service'];
-    $booking_email=  $row['booking_email'];
-    $booking_date=  $row['booking_date'];
-    $booking_time=  $row['booking_time'];
-    $booking_phone=  $row['booking_phone_num'];
-    $booking_deposit=  $row['booking_deposit'];
-
-    $sql_select_price ="SELECT * from service WHERE service_name='$booking_service'";
-    $result = mysqli_query($conn, $sql_select_price);
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $totalprice = $row['service_price'];
-        $balance = $totalprice-$booking_deposit;
-      }
-    }
-
-  }
-}
-
-}
-
-
-
 ?>
 
 
@@ -343,7 +312,35 @@ if (mysqli_num_rows($result) > 0) {
         <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
-            <form class="row g-3" method="post" onsubmit="return acceptbooking(<?php echo $row['id'];?>)">
+            <?php
+            if(isset($_GET['update'])){
+            $id =$_GET['update'];
+
+            $sql_select ="SELECT * from booking WHERE id='$id'";
+            $result = mysqli_query($conn, $sql_select);
+            if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                $id = $row['id'];
+                $booking_name=  $row['firstname'];
+                $booking_service=  $row['booking_service'];
+                $booking_email=  $row['booking_email'];
+                $booking_date=  $row['booking_date'];
+                $booking_time=  $row['booking_time'];
+                $booking_phone=  $row['booking_phone_num'];
+                $booking_deposit=  $row['booking_deposit'];
+
+                $sql_select_price ="SELECT * from service WHERE service_name='$booking_service'";
+                $result = mysqli_query($conn, $sql_select_price);
+                if (mysqli_num_rows($result) > 0) {
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $totalprice = $row['service_price'];
+                    $balance = $totalprice-$booking_deposit;
+
+
+             ?>
+            <form class="row g-3" method="post" >
+
+
               <div class="col-md-12">
 
 
@@ -395,16 +392,29 @@ if (mysqli_num_rows($result) > 0) {
                 <input type="text" class="form-control" id="booking_payment" placeholder="Please, Enter your First Name" name="booking_payment" value="RM <?php echo $balance; ?>"disabled>
                   <div class="invalid-feedback">Please, Enter your Service Name</div>
               </div>
+              <br>
+              <input type="text" class="form-control" id="total_pay" placeholder="Please, Enter your First Name" name="total_pay" value="<?php echo $totalprice; ?>"disabled>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary" >Submit</button>
+                <!-- <button value="submit" onclick="confirmpayment(<?php echo $id; ?>)" class="btn btn-primary">Submit</button> -->
                 <!-- <button type="reset" class="btn btn-secondary">Reset</button> -->
               </div>
             </form>
 
 
+            <?php
+                      }
+                    }
+                  }
+                }
+              }
+             ?>
+
           </div>
+          <button  class="btn btn-outline-success" onclick="confirmpayment(<?php echo $id; ?>)">Approve</button>
+
         </div>
+
       </div>
 
 
@@ -412,16 +422,24 @@ if (mysqli_num_rows($result) > 0) {
 
     </section>
 
-  </main><!-- End #main -->
-  <script type="text/javascript">
-  function acceptbooking(id) {
-    var ids= id;
-    let reason = confirm("Are you sure want to complete this payment "+ ids +" ." );
-    if (reason == true) {
-      // window.location.href= "Jquery/approve_paymentj.php?update="+ids+"&payment="<?php echo $totalprice; ?>"&email="<?php echo $booking_email; ?>"";
+    <script >
+
+    function confirmpayment(id) {
+      var ids= id;
+      var payment = document.getElementById('total_pay').value;
+      var email = document.getElementById('booking_email').value;
+      let reason = confirm("Payment has compeleted for the booking "+ ids +" ." );
+      if (reason == true) {
+        window.location.href = "Jquery/complete_payment.php?update="+ids+"&payment="+payment+"&email="+email+"";
+      }
     }
-  }
-  </script>
+
+    </script>
+
+
+  </main><!-- End #main -->
+
+
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
