@@ -68,7 +68,7 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="dashboard.php" class="logo d-flex align-items-center">
+      <a href="admin_dashboard.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Admin Account</span>
       </a>
@@ -162,7 +162,7 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="edit_profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="admin_edit_profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>

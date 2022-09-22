@@ -3,18 +3,25 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-$sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-$result = mysqli_query($conn, $sql);
-$jsonArray = array();
-$rows_num=mysqli_num_rows($result);
-$data_array='';
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
-  }
-}
-// $data_array=substr($data_array,0,-2);
+if ( isset($_POST['password']) && isset($_POST['newpassword'])) {
 
+    $password = $_POST['password'];
+    $newpassword = $_POST['newpassword'];
+    $hash = md5($password);
+    $newhash = md5($newpassword);
+    $query = "SELECT * FROM admin_user WHERE email='{$_SESSION["admin_email"]}'and password='$hash'";
+    $result = mysqli_query($conn,$query) ;
+    $rows = mysqli_num_rows($result);
+    $getval = $result->fetch_assoc();
+        if($rows==1){
+        $sql_Update ="UPDATE admin_user SET password='$newhash' WHERE email='{$_SESSION["admin_email"]}'";
+        $result = $conn-> query($sql_Update);
+
+        header("Location: Jquery/admin_changepass.php");
+         }else{
+        echo'<script>alert("Your Current Password is incorrect !!")</script>';
+    }
+}
 ?>
 
 
@@ -64,7 +71,7 @@ if (mysqli_num_rows($result) > 0) {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="dashboard.php" class="logo d-flex align-items-center">
+      <a href="admin_dashboard.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Admin Account</span>
       </a>
@@ -158,7 +165,7 @@ if (mysqli_num_rows($result) > 0) {
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="edit_profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="admin_edit_profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -335,9 +342,9 @@ if (mysqli_num_rows($result) > 0) {
                       <button class="nav-link active " data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                     </li>
 
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                    </li> -->
+                    </li>
 
 
 
@@ -353,19 +360,14 @@ if (mysqli_num_rows($result) > 0) {
                       <h5 class="card-title">Profile Details</h5>
                       <?php
 
-                      $sql = "SELECT * FROM user WHERE email='{$_SESSION["email"]}'";
+                      $sql = "SELECT * FROM admin_user WHERE email='{$_SESSION["admin_email"]}'";
                       $result = mysqli_query($conn, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                       ?>
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label ">First Name</div>
-                        <div class="col-lg-9 col-md-8"><?php echo $row['firstname']; ?></div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Last Name</div>
-                        <div class="col-lg-9 col-md-8"><?php echo $row['lastname']; ?></div>
+                        <div class="col-lg-3 col-md-4 label ">Email</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['email']; ?></div>
                       </div>
 
                       <div class="row">
@@ -373,47 +375,12 @@ if (mysqli_num_rows($result) > 0) {
                         <div class="col-lg-9 col-md-8"><?php echo $row['username']; ?></div>
                       </div>
 
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Email</div>
-                        <div class="col-lg-9 col-md-8"><?php echo $row['email']; ?></div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Gender</div>
-                        <div class="col-lg-9 col-md-8"><?php echo $row['gender']; ?></div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Address</div>
-                        <div class="col-lg-9 col-md-8"><?php echo $row['address']; ?></div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Reward Points</div>
-                        <div class="col-lg-9 col-md-8"><?php echo $row['reward_points']; ?></div>
-                      </div>
-
                     </div>
 
-                    <!-- <div class="tab-pane fade profile-edit pt-3" id="profile-edit"> -->
+                    <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                       <!-- Profile Edit Form -->
-                      <!-- <form action="profile_update.php?firstname="+firstname+"&lastname="+lastname+"&username="+username+"&address="+address+"" >
-
-
-                        <div class="row mb-3">
-                          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="firstname" type="text" class="form-control" id="firstname" value="<?php echo $row['firstname']; ?>" required>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="company" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="lastname" type="text" class="form-control" id="lastname" value="<?php echo $row['lastname']; ?>" required>
-                          </div>
-                        </div>
+                      <form action="Jquery/admin_edit_profile.php?username="+username+"" >
 
                         <div class="row mb-3">
                           <label for="Job" class="col-md-4 col-lg-3 col-form-label">Username</label>
@@ -422,23 +389,18 @@ if (mysqli_num_rows($result) > 0) {
                           </div>
                         </div>
 
-                        <div class="row mb-3">
-                          <label for="about" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                          <div class="col-md-8 col-lg-9">
-                            <textarea name="address" class="form-control" id="address" style="height: 100px" required><?php echo $row['address']; ?> </textarea>
-                          </div>
-                        </div>
 
                         <div class="text-center">
                           <button  type="submit" class="btn btn-primary">Save Changes</button>
-                        </div> -->
-                        <!-- <?php
+                        </div>
+                         <?php
                           }
                         }
-                        ?> -->
-                      <!-- </form><!-- End Profile Edit Form -->
+                        ?>
+                      </form>
+                      <!-- < End Profile Edit Form -->
 
-                    <!-- </div>  -->
+                    </div>
 
                     <div class="tab-pane fade pt-3" id="profile-change-password">
                       <!-- Change Password Form -->
@@ -486,12 +448,39 @@ if (mysqli_num_rows($result) > 0) {
     </section>
 
   </main><!-- End #main -->
-  <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
+  <script >
+  function CheckPassword()
+  {
+    var passw = document.getElementById('newpassword').value;
+    var passw2 = document.getElementById('renewPassword').value;
+    var upper  =/[A-Z]/;
+    var number = /[0-9]/;
+
+    if(passw.length < 8 || passw.length > 20 || passw != passw2 || !number.test(passw) || !upper.test(passw)) {
+      if(passw.length<8){
+        alert("Please make sure password is longer than 8 characters.")
+        return false;
+      }
+      if(passw.length>20){
+        alert("Please make sure password is shorter than 20 characters.")
+        return false;
+      }
+      if(passw != passw2){
+        alert("Please make sure passwords match.")
+        return false;
+      }
+      if(!number.test(passw)){
+        alert("Please make sure password includes a digit")
+        return false;
+      }
+      if(!upper.test(passw)) {
+        alert("Please make sure password includes an uppercase letter.")
+        return false;
+      }
+    }
   }
   </script>
+
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
