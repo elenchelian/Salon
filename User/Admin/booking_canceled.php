@@ -167,11 +167,10 @@ if (mysqli_num_rows($result) > 0) {
               <hr class="dropdown-divider">
             </li>
             <li>
-              <button class="dropdown-item d-flex align-items-center" onclick="JSalert()">
-
+                <a class="dropdown-item d-flex align-items-center" href="admin_login.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
-              </button>
+              </a>
             </li>
             <li>
               <hr class="dropdown-divider">
