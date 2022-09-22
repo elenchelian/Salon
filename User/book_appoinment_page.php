@@ -346,8 +346,8 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
               </div>
 
               <div class="col-12">
-                <label for="inputdeposit" class="form-label">Please pay a deposit Amount more than RM20</label>
-                <input type="number" class="form-control" id="inputdeposit" name="service_deposit" required>
+                <label for="inputdeposit" class="form-label">Please pay a Deposit. (min:RM 20)</label>
+                <input type="number" class="form-control" id="service_deposit" name="service_deposit" required>
                 <div class="invalid-feedback">Please, Enter your Deposit Amount</div>
               </div>
 
@@ -371,7 +371,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
           var phonenum = document.getElementById('inputPhoneNumber').value;
           var cardnum = document.getElementById('inputCardNumber').value;
           var cardcode = document.getElementById('inputSecurityCode').value;
-          var deposit = document.getElementById('inputdeposit').value;
+          var deposit = document.getElementById('service_deposit').value;
 
           if(phonenum.length<10 ||phonenum.length>11){
             alert("Please make sure entered phone number is valid.")
@@ -385,7 +385,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
             alert("Please make sure entered Security Code is valid.")
             return false;
           }
-          if(deposit.value>20){
+          if(deposit<20){
             alert("Please pay deposit more than RM20")
             return false;
           }
