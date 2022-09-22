@@ -215,7 +215,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <th scope="col">Service</th>
                 <th scope="col">Redeem Item</th>
                 <th scope="col">Points</th>
-                <th scope="col">Date</th>
+                <!-- <th scope="col">Date</th> -->
 
               </tr>
             </thead>
@@ -231,7 +231,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <td><?php echo $row['service']; ?></td>
                 <td><?php echo $row['redeem_item']; ?></td>
                 <td><?php echo $row['points']; ?></td>
-                <td><?php echo $row['date']; ?></td>
+                <!-- <td><?php echo $row['date']; ?></td> -->
 
               </tr>
               <?php
