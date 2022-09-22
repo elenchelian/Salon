@@ -8,15 +8,17 @@ $result = mysqli_query($conn, $sql);
 $jsonArray = array();
 $rows_num=mysqli_num_rows($result);
 $data_array='';
-if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    // $data_array="{booking_service:'"+$row["booking_service"]+"'}";
+
+while ($row = mysqli_fetch_assoc($result)) {
+
+$jsonArray[]="['".
+  $row['booking_service'].
+  "',".
+  $row['COUNT(*)']."],";
+
   }
-}
-// $data_array=substr($data_array,0,-2);
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,14 +51,10 @@ if (mysqli_num_rows($result) > 0) {
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.3.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+
+  </head>
 
 <body>
 
@@ -354,6 +352,7 @@ if (mysqli_num_rows($result) > 0) {
               </div>
             </div><!-- End Sales Card -->
 
+
             <!-- Sales Card -->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card customers-card">
@@ -369,7 +368,7 @@ if (mysqli_num_rows($result) > 0) {
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
+                      <i class="bi bi-x-circle"></i>
                     </div>
                     <div class="ps-3">
                       <h6><?php echo $row['COUNT(*)']; ?></h6>
@@ -400,7 +399,7 @@ if (mysqli_num_rows($result) > 0) {
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
+                      <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
                       <h6><?php echo $row['COUNT(*)']; ?></h6>
@@ -416,133 +415,56 @@ if (mysqli_num_rows($result) > 0) {
               </div>
             </div><!-- End Sales Card -->
 
-
-
-
             <!-- Website Traffic -->
             <div class="card">
 
-              <div class="card-body pb-0">
-                <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-                <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-                <?php
-
-                $sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-                $result = mysqli_query($conn, $sql);
-                $jsonArray = array();
-                $rows_num=mysqli_num_rows($result);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    // $jsonArrayItem = array();
-                    // $jsonArrayItem['service'] = $row['booking_service'];
-                    // // $jsonArrayItem['count'] = $row['COUNT(*)'];
-                    //
-                    // array_push($jsonArray, $jsonArrayItem);
-                    //
-                    // }
-                    //   $arr=json_encode($jsonArray);
-                    //   echo $arr;
-
-                ?>
-
-                <!-- <input  id="pointsid" value="<?php echo $row['booking_service']; ?>" ></input> -->
-
-                <script>
-                // var ary =JSON.stringify(Num) ;
-
-                var arr =[];
-                // arr.push("<?php echo $row['booking_service']; ?>");
-                //
-                //
-
-                // var items = '<?php echo $row['booking_service']; ?>';
-                // var itemsC = '<?php echo $row['COUNT(*)']; ?>';
-                // var rownum = '<?php echo $rows_num; ?>';
-
-                // var count = 0;
-                // for(i=0;i<rownum;i++){
-                //
-                //   ary.push(items);
-                //   aryC.push(itemsC);
-                // }
-
-                // ary.push(items);
-                // aryC.push(itemsC);
-                  // alert('--'+<?php echo $data_array; ?>+'');
-
-                  document.addEventListener("DOMContentLoaded", () => {
-                    echarts.init(document.querySelector("#trafficChart")).setOption({
-                      tooltip: {
-                        trigger: 'item'
-                      },
-                      legend: {
-                        top: '5%',
-                        left: 'center'
-                      },
-                      series: [{
-                        name: 'Access From',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                          show: false,
-                          position: 'center'
-                        },
-                        emphasis: {
-                          label: {
-                            show: true,
-                            fontSize: '18',
-                            fontWeight: 'bold'
-                          }
-                        },
-                        labelLine: {
-                          show: false
-                        },
-                        data: [{
-                            value: 23,
-                            name: 'Facial spa',
-                          },
-                          {
-                            value: 54,
-                            name: 'Hair Cut',
-                            },
-                            {
-                              value: 23,
-                              name: 'Hair Wash & Blow',
-                              },
-                              {
-                                value: 34,
-                                name: 'Manicure',
-                                }
-
-                        ]
-                      }
-                    ]
-
-                    });
-                  });
-                </script>
-                <?php
-                  }
-                }
-                ?>
+              <div class="card-body pb-5"align="center">
+                <!-- <h5 class="card-title">Website Traffic <span>| Today</span></h5> -->
+                <!-- <div id="trafficChart" style="min-height: 400px;" class="echart"></div> -->
+                <div id="piechart" style="width: 650px; height: 350px;" ></div>
 
               </div>
 
             </div><!-- End Website Traffic -->
 
-
-
-
     </section>
 
   </main><!-- End #main -->
   <script type="text/javascript">
-  function JSalert(){
-    // session_unset();
-      window.location = "pages-login.php";
-  }
-  </script>
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Type of service', 'Number of booking'],
+          <?php
+          foreach ($jsonArray as $jsonArray) {
+            echo $jsonArray;
+          }
+          ?>
+
+
+        ]);
+
+        var options = {
+          title: 'Service Report',
+          pieHole: 0.4,
+          titleTextStyle: {
+            color: ('#07105f'),    // any HTML string color ('red', '#cc00cc')
+            fontName: "Nunito", // i.e. 'Times New Roman'
+            fontSize: 22, // 12, 18 whatever you want (don't specify px)
+            bold: true,    // true or false
+            // italic: <boolean>   // true of false
+    }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

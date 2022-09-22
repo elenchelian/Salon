@@ -314,7 +314,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
 
     <!-- ======= Gallery Section ======= -->
-    <!-- <section id="gallery" class="gallery section-bg">
+    <section id="gallery" class="gallery section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
@@ -337,7 +337,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         </div>
 
       </div>
-    </section> -->
+    </section>
     <!-- End Gallery Section -->
 
     <!-- ======= Contact Section ======= -->
@@ -470,7 +470,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
             <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://wa.me/+6014902202854" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
           </div>
         </div>
 
