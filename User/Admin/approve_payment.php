@@ -393,7 +393,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                   <div class="invalid-feedback">Please, Enter your Service Name</div>
               </div>
               <br>
-              <input type="text" class="form-control" id="total_pay" placeholder="Please, Enter your First Name" name="total_pay" value="<?php echo $totalprice; ?>"disabled>
+              <input type="text" class="form-control" id="total_pay" placeholder="Please, Enter your First Name" name="total_pay" value="<?php echo $totalprice; ?>"hidden>
 
               <div class="text-center">
                 <!-- <button value="submit" onclick="confirmpayment(<?php echo $id; ?>)" class="btn btn-primary">Submit</button> -->
@@ -428,9 +428,10 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
       var ids= id;
       var payment = document.getElementById('total_pay').value;
       var email = document.getElementById('booking_email').value;
+      var service = document.getElementById('service_name').value;
       let reason = confirm("Payment has compeleted for the booking "+ ids +" ." );
       if (reason == true) {
-        window.location.href = "Jquery/complete_payment.php?update="+ids+"&payment="+payment+"&email="+email+"";
+        window.location.href = "Jquery/complete_payment.php?update="+ids+"&payment="+payment+"&email="+email+"&service="+service+"";
       }
     }
 

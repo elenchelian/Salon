@@ -250,12 +250,17 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 ?>
                 <div class="col-lg-2 menu-item" >
                   <a href="<?php echo $row['reward_path']; ?>" class="glightbox"><img src="<?php echo $row['reward_path']; ?>" class="menu-img img-fluid" alt=""></a>
+                  <div style="height:100px">
                   <h4 align="center" ><?php echo $row['reward_item']; ?></h4>
+                  <h4 align="center" ><?php echo $row['reward_point']; ?></h4>
+                  </div>
+                  <div align="center">
                   <p class="price" align="center" >
-                    <?php echo $row['reward_point']; ?><br><br>
                     <input type="hidden" id="getemail" value="<?php echo $_SESSION["email"]; ?>"></input>
-                    <button href="" class="btn btn-outline-success" onclick="confirmFunction(<?php echo $row['id']; ?>)">Redeem</button>
                   </p>
+                  <button href="" class="btn btn-outline-success" onclick="confirmFunction(<?php echo $row['id']; ?>)">Redeem</button>
+
+                </div>
 
                 </div><!-- Menu Item -->
                 <?php
@@ -274,7 +279,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
               var pointsid = document.getElementById('pointsid').value;
               // var reward_point = document.getElementById('get_reward_point').value;
 
-              let reason = confirm("Are you sure want to Redeem this item -"+ pointsid +"----"+emails+"");
+              let reason = confirm("Are you sure want to Redeem this item .");
               if (reason == true) {
 
                 window.location.href= "redeem_reward.php?update="+ids+"&email="+emails+"&point="+pointsid+"";

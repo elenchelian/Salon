@@ -158,7 +158,7 @@ if (mysqli_num_rows($result) > 0) {
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="admin_edit_profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="edit_profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -321,219 +321,167 @@ if (mysqli_num_rows($result) > 0) {
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="center">
           <div class="row">
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-                <?php
+            <div class="col-xl-8">
 
-                $sql = "SELECT COUNT(*)FROM booking ;";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="card-body">
-                  <h5 class="card-title">Reservation <h5>
+              <div class="card">
+                <div class="card-body pt-3">
+                  <!-- Bordered Tabs -->
+                  <ul class="nav nav-tabs nav-tabs-bordered">
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $row['COUNT(*)']; ?></h6>
-                      <span class="text-primary small pt-1 fw-bold">Total number of reservation</span>
+                    <li class="nav-item">
+                      <button class="nav-link active " data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                    </li>
 
-                    </div>
-                  </div>
-                </div>
-                <?php
-                  }
-                }
-                ?>
-              </div>
-            </div><!-- End Sales Card -->
+                    <!-- <li class="nav-item">
+                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                    </li> -->
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card customers-card">
-                <?php
 
-                $sql = "SELECT COUNT(*)FROM booking WHERE booking_status='canceled';";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="card-body">
-                  <h5 class="card-title">Cancellation <h5>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $row['COUNT(*)']; ?></h6>
-                      <span class="text-danger small pt-1 fw-bold">Total number Reservartion Canceled</span>
+                    <li class="nav-item">
+                      <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                    </li>
 
-                    </div>
-                  </div>
-                </div>
-                <?php
-                  }
-                }
-                ?>
-              </div>
-            </div><!-- End Sales Card -->
+                  </ul>
+                  <div class="tab-content pt-2">
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-                <?php
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
-                $sql = "SELECT COUNT(*)FROM user ;";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="card-body">
-                  <h5 class="card-title">Users <h5>
+                      <h5 class="card-title">Profile Details</h5>
+                      <?php
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-card-list"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $row['COUNT(*)']; ?></h6>
-                      <span class="text-success small pt-1 fw-bold">Total number of users Registered</span>
+                      $sql = "SELECT * FROM user WHERE email='{$_SESSION["email"]}'";
+                      $result = mysqli_query($conn, $sql);
+                      if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                      ?>
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label ">First Name</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['firstname']; ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Last Name</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['lastname']; ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Username</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['username']; ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Email</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['email']; ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Gender</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['gender']; ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Address</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['address']; ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Reward Points</div>
+                        <div class="col-lg-9 col-md-8"><?php echo $row['reward_points']; ?></div>
+                      </div>
 
                     </div>
-                  </div>
-                </div>
-                <?php
-                  }
-                }
-                ?>
-              </div>
-            </div><!-- End Sales Card -->
+
+                    <!-- <div class="tab-pane fade profile-edit pt-3" id="profile-edit"> -->
+
+                      <!-- Profile Edit Form -->
+                      <!-- <form action="profile_update.php?firstname="+firstname+"&lastname="+lastname+"&username="+username+"&address="+address+"" >
 
 
+                        <div class="row mb-3">
+                          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="firstname" type="text" class="form-control" id="firstname" value="<?php echo $row['firstname']; ?>" required>
+                          </div>
+                        </div>
 
+                        <div class="row mb-3">
+                          <label for="company" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="lastname" type="text" class="form-control" id="lastname" value="<?php echo $row['lastname']; ?>" required>
+                          </div>
+                        </div>
 
-            <!-- Website Traffic -->
-            <div class="card">
+                        <div class="row mb-3">
+                          <label for="Job" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="username" type="text" class="form-control" id="username" value="<?php echo $row['username']; ?>" required>
+                          </div>
+                        </div>
 
-              <div class="card-body pb-0">
-                <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-                <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-                <?php
+                        <div class="row mb-3">
+                          <label for="about" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                          <div class="col-md-8 col-lg-9">
+                            <textarea name="address" class="form-control" id="address" style="height: 100px" required><?php echo $row['address']; ?> </textarea>
+                          </div>
+                        </div>
 
-                $sql = "SELECT booking_service,COUNT(*) from booking GROUP BY booking_service;";
-                $result = mysqli_query($conn, $sql);
-                $jsonArray = array();
-                $rows_num=mysqli_num_rows($result);
-                if (mysqli_num_rows($result) > 0) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    // $jsonArrayItem = array();
-                    // $jsonArrayItem['service'] = $row['booking_service'];
-                    // // $jsonArrayItem['count'] = $row['COUNT(*)'];
-                    //
-                    // array_push($jsonArray, $jsonArrayItem);
-                    //
-                    // }
-                    //   $arr=json_encode($jsonArray);
-                    //   echo $arr;
-
-                ?>
-
-                <!-- <input  id="pointsid" value="<?php echo $row['booking_service']; ?>" ></input> -->
-
-                <script>
-                // var ary =JSON.stringify(Num) ;
-
-                var arr =[];
-                // arr.push("<?php echo $row['booking_service']; ?>");
-                //
-                //
-
-                // var items = '<?php echo $row['booking_service']; ?>';
-                // var itemsC = '<?php echo $row['COUNT(*)']; ?>';
-                // var rownum = '<?php echo $rows_num; ?>';
-
-                // var count = 0;
-                // for(i=0;i<rownum;i++){
-                //
-                //   ary.push(items);
-                //   aryC.push(itemsC);
-                // }
-
-                // ary.push(items);
-                // aryC.push(itemsC);
-                  // alert('--'+<?php echo $data_array; ?>+'');
-
-                  document.addEventListener("DOMContentLoaded", () => {
-                    echarts.init(document.querySelector("#trafficChart")).setOption({
-                      tooltip: {
-                        trigger: 'item'
-                      },
-                      legend: {
-                        top: '5%',
-                        left: 'center'
-                      },
-                      series: [{
-                        name: 'Access From',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                          show: false,
-                          position: 'center'
-                        },
-                        emphasis: {
-                          label: {
-                            show: true,
-                            fontSize: '18',
-                            fontWeight: 'bold'
+                        <div class="text-center">
+                          <button  type="submit" class="btn btn-primary">Save Changes</button>
+                        </div> -->
+                        <!-- <?php
                           }
-                        },
-                        labelLine: {
-                          show: false
-                        },
-                        data: [{
-                            value: 23,
-                            name: 'Facial spa',
-                          },
-                          {
-                            value: 54,
-                            name: 'Hair Cut',
-                            },
-                            {
-                              value: 23,
-                              name: 'Hair Wash & Blow',
-                              },
-                              {
-                                value: 34,
-                                name: 'Manicure',
-                                }
+                        }
+                        ?> -->
+                      <!-- </form><!-- End Profile Edit Form -->
 
-                        ]
-                      }
-                    ]
+                    <!-- </div>  -->
 
-                    });
-                  });
-                </script>
-                <?php
-                  }
-                }
-                ?>
+                    <div class="tab-pane fade pt-3" id="profile-change-password">
+                      <!-- Change Password Form -->
+                      <form method="post" onsubmit="return CheckPassword()">
 
+                        <div class="row mb-3">
+                          <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="password" type="password" class="form-control" id="password">
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="newpassword" type="password" class="form-control" id="newpassword">
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                          </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary" >Change Password</button>
+                        </div>
+                      </form><!-- End Change Password Form -->
+
+                    </div>
+
+                  </div><!-- End Bordered Tabs -->
+
+                </div>
               </div>
 
-            </div><!-- End Website Traffic -->
+            </div>
 
 
-
+        </div>
+        </div>
 
     </section>
 

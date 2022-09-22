@@ -3,29 +3,80 @@ require_once 'pdo.php';
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "salon");
 
-if(isset($_POST["uploadfile"]) && isset($_POST["reward_name"]) && isset($_POST["reward_point"])){
-  // if($_FILES['uploadfile']['size'] != 0){
+if(isset($_POST["fileToUpload"]) && isset($_POST["reward_name"]) && isset($_POST["reward_point"])){
+  if($_FILES['fileToUpload']['size'] != 0){
 
       $reward_name = $_POST["reward_name"];
       $reward_point = $_POST["reward_point"];
-      $file = $_FILES["uploadfile"];
+      $file = $_FILES['fileToUpload'];
+      $filename1 = $_FILES['fileToUpload']['name'];
 
-      $filename ="assets/reward_item".$file["name"];
-      if( move_uploaded_file($file["tmp_name"],"assets/reward_item/".$file["name"]))
-{
+      $filename ="assets/reward_item/$filename1";
+      // if( move_uploaded_file($file["tmp_name"],"../assets/reward_item/".$file["name"]))
+// {
           $stmt = $pdo->prepare("INSERT INTO reward_item (id,reward_item,reward_point,reward_path)VALUES('id','$reward_name','$reward_point','$filename')");
           $stmt->execute();
 
 
         header("Location: manage_reward.php");
         return;
+      // }
       }
-      }
+    }
 
-      ?>
+//       if(isset($_POST["fileToUpload"]) && isset($_POST["reward_name"]) && isset($_POST["reward_point"])){
+//         // echo 'alert("Welcome to Geeks for Geeks")';
+//
+//   if($_FILES['fileToUpload']['size'] != 0){
+//     echo "Filename: " . $_FILES['fileToUpload']['name']."<br>";
+//     echo "Type : " . $_FILES['fileToUpload']['type'] ."<br>";
+//     echo "Size : " . $_FILES['fileToUpload']['size'] ."<br>";
+//     echo "Temp name: " . $_FILES['fileToUpload']['tmp_name'] ."<br>";
+//     echo "Error : " . $_FILES['fileToUpload']['error'] . "<br>";
+//       $uploaddir = '../assets/reward_item/';
+//       $filename  = basename($_FILES['fileToUpload']['name']);
+//       $extension = pathinfo($filename, PATHINFO_EXTENSION);
+//       $date = date('m-d-Y h-i-s a');
+//       $new = "$date.$extension";
+//       $uploadfile = $uploaddir . $new;
+//
+//       $reward_name = $_POST["reward_name"];
+//       $reward_point = $_POST["reward_point"];
+//       $file = $_FILES["uploadfile"];
+//
+//
+//       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "$uploadfile")){
+//
+//         $_SESSION["message"] = "";
+//
+//         // $stmt = $pdo->query('SELECT serviceid FROM `services` WHERE name="'.$_SESSION["servicename"].'";');
+//         // $service_id = $stmt->fetch(PDO::FETCH_ASSOC);
+//
+//         $stmt = $pdo->prepare("INSERT INTO 'reward_item' ('id','reward_item','reward_point','reward_path') VALUES (:si, :d, :t, :f);");
+//
+//         $stmt->execute(array(
+//           ':si' => 'id',
+//           ':d' => $reward_name,
+//           ':t' => $reward_point,
+//           ':f' => $uploadfile,));
+//
+//         header("Location: manage_reward.php");
+//       }else{
+//         $_SESSION["message"] = "File upload unsuccessful.";
+//         header("Location: admin_dashboard.php");
+//       }
+//
+//       exit();
+//   }else{
+//       $_SESSION["message"] = "Please select a file to upload.";
+//       header("Location: admin_dashboard.php");
+//       exit();
+//   }
+// }
 
 
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -333,7 +384,7 @@ if(isset($_POST["uploadfile"]) && isset($_POST["reward_name"]) && isset($_POST["
         <div class="col-lg-11">
           <div class="row">
 
-            <form class="row g-3" method="post" onsubmit="return CheckPassword()">
+            <form class="row g-3" action="Jquery/add_reward_list.php" method="post" enctype="multipart/form-data">
               <div class="col-md-12">
 
 
@@ -347,14 +398,14 @@ if(isset($_POST["uploadfile"]) && isset($_POST["reward_name"]) && isset($_POST["
 
               <div class="col-12">
                 <label for="inputPhoneNumber" class="form-label">Reward Points</label>
-                <input type="text" class="form-control" id="reward_point"  placeholder="Please, enter your reward points" name="reward_point" required>
+                <input type="number" class="form-control" id="reward_point"  placeholder="Please, enter your reward points" name="reward_point" required>
                   <div class="invalid-feedback">Please, Enter your Service Price</div>
               </div>
               <br>
 
               <div class="col-12">
                 <label for="inputPhoneNumber" class="form-label">Upload Your Image</label><br>
-                  <input class="btn btn-success" type="file" id="uploadfile" onchange="loadFile(event)" name="uploadfile" accept="image/*">
+                  <input class="btn btn-primary" type="file" id="fileToUpload"  name="fileToUpload" accept="image/*">
                   <div class="invalid-feedback">Please, Enter your Service Price</div>
               </div>
 
