@@ -272,14 +272,16 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
                }
                ?>
 
+               <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
               <div class="col-md-6">
                 <label for="inputDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="inputDate" name="service_date" required>
+                <input type="date" class="form-control" id="inputDate" min="<?= date('Y-m-d'); ?>" name="service_date" required>
                 <div class="invalid-feedback">Please, Select Your Date</div>
               </div>
               <div class="col-md-6">
                 <label for="inputTime" class="form-label">Time</label>
-                <input type="time" class="form-control" id="inputTime" name="service_time" required>
+                <input type="time" class="form-control" id="inputTime" min="09:00" max="21:00" name="service_time" required>
                 <div class="invalid-feedback">Please, Select Your Time</div>
               </div>
               <div class="col-12">
@@ -366,6 +368,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
 
     <script>
 
+        
         function CheckPassword()
         {
           var phonenum = document.getElementById('inputPhoneNumber').value;
@@ -402,6 +405,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.min.js"></script>
