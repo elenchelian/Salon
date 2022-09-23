@@ -469,7 +469,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
           <div class="social-links d-flex">
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.instagram.com/saiselvasalon/?igshid=YmMyMTA2M2Y%3D" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="https://wa.me/+6014902202854" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
           </div>
         </div>
