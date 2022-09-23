@@ -160,7 +160,7 @@ if(isset($_POST["fileToUpload"]) && isset($_POST["reward_name"]) && isset($_POST
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                 <li class="dropdown-header">
                   You have <?php echo $row['COUNT(*)']; ?> new notifications
-                  <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                  <a href="pending_list.php"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                 </li>
                 <li>
                   <hr class="dropdown-divider">

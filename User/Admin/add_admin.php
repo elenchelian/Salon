@@ -104,7 +104,7 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                 <li class="dropdown-header">
                   You have <?php echo $row['COUNT(*)']; ?> new notifications
-                  <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                  <a href="pending_list.php"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
@@ -170,7 +170,7 @@ if ( isset($_POST['admin_email']) && isset($_POST['admin_password']) && isset($_
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li>      
+            <li>
                 <a class="dropdown-item d-flex align-items-center" href="admin_login.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
