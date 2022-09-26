@@ -73,7 +73,6 @@ if ( isset($_POST['service_name']) && isset($_POST['service_categories']) && iss
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Admin Account</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
 

@@ -14,7 +14,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -56,7 +56,6 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Account</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
 

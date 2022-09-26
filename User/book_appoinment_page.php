@@ -82,7 +82,6 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Account</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
 
@@ -367,8 +366,19 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
     </section>
 
     <script>
+            $("#inputDate").flatpickr({
+        enableTime: true,
+        dateFormat: "m-d-Y",
+        "disable": [
+            function(date) {
+               return (date.getDay() === 0 || date.getDay() === 6);  // disable weekends
+            }
+        ],
+        "locale": {
+            "firstDayOfWeek": 1 // set start day of week to Monday
+        }
+        });
 
-        
         function CheckPassword()
         {
           var phonenum = document.getElementById('inputPhoneNumber').value;

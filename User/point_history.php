@@ -56,7 +56,6 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My Account</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
 
