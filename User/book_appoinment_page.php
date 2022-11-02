@@ -8,6 +8,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
 && isset($_POST['service_card_code']) && isset($_POST['service_deposit'])
 ) {
 
+
     $service_name = $_POST['service_name'];
     $service_date = $_POST['service_date'];
     $service_time = $_POST['service_time'];
@@ -21,13 +22,26 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
     $firstname = $_POST['firstname'];
     $email = $_SESSION["email"];
 
-    $stmt = $pdo->prepare("INSERT INTO booking (id,firstname,booking_email,booking_service,booking_date,booking_time,booking_phone_num,booking_bank,booking_card_num,booking_card_date,booking_card_year,booking_card_code,booking_deposit,booking_status)
-    VALUES('id','$firstname','$email','$service_name','$service_date','$service_time','$service_phone_num','$service_bank','$service_card_num','$service_card_date','$service_card_year','$service_card_code','$service_deposit','pending')");
-    $stmt->execute();
+    $sql = "SELECT * FROM booking WHERE booking_date='$service_date' and booking_time='$service_time' ";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 2) {
+      while ($row = mysqli_fetch_assoc($result)) {
 
-  echo'<script>alert("Your Booking Has been submited")</script>';
-  header("Location: dashboard.php");
-  return;
+        header("Location: booking_full.php");
+      }
+    }else{
+      $stmt = $pdo->prepare("INSERT INTO booking (id,firstname,booking_email,booking_service,booking_date,booking_time,booking_phone_num,booking_bank,booking_card_num,booking_card_date,booking_card_year,booking_card_code,booking_deposit,booking_status)
+      VALUES('id','$firstname','$email','$service_name','$service_date','$service_time','$service_phone_num','$service_bank','$service_card_num','$service_card_date','$service_card_year','$service_card_code','$service_deposit','pending')");
+      $stmt->execute();
+
+    echo'<script>alert("Your Booking Has been submited")</script>';
+    header("Location: dashboard.php");
+    return;
+    }
+
+
+
+
 }
 ?>
 
@@ -262,6 +276,7 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
               <?php
              $sql = "SELECT * FROM user WHERE email='{$_SESSION["email"]}'";
              $result = mysqli_query($conn, $sql);
+             $Date =date('Y-m-d');
              if (mysqli_num_rows($result) > 0) {
                while ($row = mysqli_fetch_assoc($result)) {
              ?>
@@ -273,16 +288,67 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
 
                <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
+               <!-- custome datepicker format -->
+               <!-- <link href=
+                "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+                    rel="stylesheet" />
+              <script src="https://code.jquery.com/jquery-1.10.2.js">
+              </script>
+              <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js">
+              </script>
+               <script>
+                $(function () {
+                    $("#inputDate").datepicker({
+                        maxDate: "+1w",
+                        minDate: "0w"
+                    });
+                });
+            </script> -->
+
               <div class="col-md-6">
                 <label for="inputDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="inputDate" min="<?= date('Y-m-d'); ?>" name="service_date" required>
+                <input type="date" class="form-control" id="inputDate" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime($Date. ' + 7 days')); ?>" name="service_date" required>
+
                 <div class="invalid-feedback">Please, Select Your Date</div>
               </div>
-              <div class="col-md-6">
+
+
+              <!-- <div class="col-md-6">
                 <label for="inputTime" class="form-label">Time</label>
                 <input type="time" class="form-control" id="inputTime" min="09:00" max="21:00" name="service_time" required>
                 <div class="invalid-feedback">Please, Select Your Time</div>
+              </div> -->
+              <div class="col-md-6">
+                <label for="inputTime" class="form-label">Time</label>
+                <select class="form-select" aria-label="Default select example" name="service_time" required>
+                  <option value="9:00 a.m">9:00 a.m</option>
+                  <option value="9:30 a.m">9:30 a.m</option>
+                  <option value="10:00 a.m">10:00 a.m</option>
+                  <option value="10:30 a.m">10:30 a.m</option>
+                  <option value="11:00 a.m">11:00 a.m</option>
+                  <option value="11:30 a.m">11:30 a.m</option>
+                  <option value="12:00 p.m">12:00 p.m</option>
+                  <option value="12:30 p.m">12:30 p.m</option>
+                  <option value="1:00 p.m">1:00 p.m</option>
+                  <option value="1:30 p.m">1:30 p.m</option>
+                  <option value="2:00 p.m">2:00 p.m</option>
+                  <option value="2:30 p.m">2:30 p.m</option>
+                  <option value="3:00 p.m">3:00 p.m</option>
+                  <option value="3:30 p.m">3:30 p.m</option>
+                  <option value="4:00 p.m">4:00 p.m</option>
+                  <option value="4:30 p.m">4:30 p.m</option>
+                  <option value="5:00 p.m">5:00 p.m</option>
+                  <option value="5:30 p.m">5:30 p.m</option>
+                  <option value="6:00 p.m">6:00 p.m</option>
+                  <option value="6:30 p.m">6:30 p.m</option>
+                  <option value="7:00 p.mv">7:00 p.m</option>
+                  <option value="7:30 p.m">7:30 p.m</option>
+                  <option value="8:00 p.m">8:00 p.m</option>
+                  <option value="8:30 p.m">8:30 p.m</option>
+                  <option value="9:00 p.m">9:00 p.m</option>
+                </select>
               </div>
+
               <div class="col-12">
                 <label for="inputPhoneNumber" class="form-label">Phone Number</label>
                 <input type="number" class="form-control" id="inputPhoneNumber" name="service_phone_num" required>
