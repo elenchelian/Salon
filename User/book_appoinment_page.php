@@ -77,6 +77,10 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+
+
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
@@ -286,31 +290,21 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
                }
                ?>
 
-               <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
-               <!-- custome datepicker format -->
-               <!-- <link href=
-                "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-                    rel="stylesheet" />
-              <script src="https://code.jquery.com/jquery-1.10.2.js">
-              </script>
-              <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js">
-              </script>
-               <script>
-                $(function () {
-                    $("#inputDate").datepicker({
-                        maxDate: "+1w",
-                        minDate: "0w"
-                    });
-                });
-            </script> -->
 
               <div class="col-md-6">
                 <label for="inputDate" class="form-label">Date</label>
-                <input type="date" class="form-control" id="inputDate" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime($Date. ' + 7 days')); ?>" name="service_date" required>
-
+                <!-- <input type="date" class="form-control" id="inputDate" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', strtotime($Date. ' + 7 days')); ?>" name="service_date" data-input required> -->
+                <input id="date1"   class="form-control"  name="service_date" placeholder="MM/DD/YYYY" data-input required />
                 <div class="invalid-feedback">Please, Select Your Date</div>
               </div>
+
+
+
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <!--  Flatpickr  -->
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+
 
 
               <!-- <div class="col-md-6">
@@ -432,18 +426,33 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
     </section>
 
     <script>
-            $("#inputDate").flatpickr({
-        enableTime: true,
+            $("#date1").flatpickr({
+        minDate: "today",
+        maxDate: new Date().fp_incr(7),
+        enableTime: false,
         dateFormat: "m-d-Y",
+
+        // maxDate: "15.12.2017"
         "disable": [
-            function(date) {
-               return (date.getDay() === 0 || date.getDay() === 6);  // disable weekends
-            }
+          function(date) {
+             return (date.getDay() === 0 || date.getDay() === 6);  // disable weekends
+          }
         ],
         "locale": {
-            "firstDayOfWeek": 1 // set start day of week to Monday
+          "firstDayOfWeek": 1 // set start day of week to Monday
         }
         });
+
+
+        // const picker = document.getElementById('inputDate');
+        // picker.addEventListener('input', function(e){
+        //   var day = new Date(this.value).getUTCDay();
+        //   if([6,0].includes(day)){
+        //     e.preventDefault();
+        //     this.value = '';
+        //     alert('Weekends not allowed');
+        //   }
+        // });
 
         function CheckPassword()
         {
