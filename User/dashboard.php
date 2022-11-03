@@ -150,6 +150,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="slot_checking.php">
+              <i class="bi bi-circle"></i><span>Slot Checking</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>Book Appointment</span>
             </a>

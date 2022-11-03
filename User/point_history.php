@@ -147,6 +147,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="slot_checking.php">
+              <i class="bi bi-circle"></i><span>Slot Checking</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>Book Appointment</span>
             </a>
@@ -214,7 +219,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <th scope="col">Service</th>
                 <th scope="col">Redeem Item</th>
                 <th scope="col">Points</th>
-                <!-- <th scope="col">Date</th> -->
+                <th scope="col">Date</th>
 
               </tr>
             </thead>
@@ -230,7 +235,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <td><?php echo $row['service']; ?></td>
                 <td><?php echo $row['redeem_item']; ?></td>
                 <td><?php echo $row['points']; ?></td>
-                <!-- <td><?php echo $row['date']; ?></td> -->
+                <td><?php echo $row['date']; ?></td>
 
               </tr>
               <?php

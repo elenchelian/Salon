@@ -38,6 +38,8 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <link href="assets/scss/main.scss" rel="stylesheet/less">
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -107,10 +109,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-login.php">
+              <button class="dropdown-item d-flex align-items-center" onclick="JSalert()">
+
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
-              </a>
+              </button>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -169,7 +172,6 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         </ul>
       </li>
 
-
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#reward-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gift"></i><span>Claim Reward</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -197,11 +199,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Reservation</h1>
+      <h1>Slot Checking</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">Appoinment Status</li>
+          <li class="breadcrumb-item">Reservation</li>
+          <li class="breadcrumb-item active">Slot Checking</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -210,7 +212,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Pending Appoinment Status</h5>
+          <h5 class="card-title">Slot Checking</h5>
 
           <!-- Table with hoverable rows -->
           <table class="table table-hover">
@@ -220,14 +222,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <th scope="col">Service Name</th>
                 <th scope="col">Booking Date</th>
                 <th scope="col">Booking Time</th>
-                <th scope="col">Booking Deposit</th>
-                <th scope="col">Booking Status</th>
-                <th scope="col" align="center">Cancel Booking</th>
               </tr>
             </thead>
             <tbody>
               <?php
-             $sql = "SELECT * FROM booking where booking_status='pending' and booking_email='{$_SESSION["email"]}' ";
+             $sql = "SELECT * FROM booking order by booking_date desc ";
              $result = mysqli_query($conn, $sql);
              if (mysqli_num_rows($result) > 0) {
                while ($row = mysqli_fetch_assoc($result)) {
@@ -238,38 +237,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 <td><?php echo $row['booking_service']; ?></td>
                 <td><?php echo $row['booking_date']; ?></td>
                 <td><?php echo $row['booking_time']; ?></td>
-                <td><?php echo $row['booking_deposit']; ?></td>
-                <td><?php echo $row['booking_status']; ?></td>
-                <td >
-                  <!-- <a href="cancel_booking.php?update=<?php echo $row['id']; ?>" class="btn btn-outline-danger" type="submit" id="sendval">Cancel Booking</a> -->
-                  <button href="" class="btn btn-outline-danger" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking</button>
 
-                  <!-- <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verticalycentered" onclick="confirmFunction(<?php echo $row['id'];?>)">Cancel Booking </button> -->
-
-                  <div class="modal fade" id="verticalycentered" tabindex="-1">
-
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-
-                          <h5 class="modal-title">Cancel Booking Confirmation</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          Are you sure want to cancel the booking on  <?php echo $row['id']; ?> at <?php echo $row['booking_time']; ?> for <?php echo $row['booking_service']; ?>
-                        </div>
-                        <input type="text" name="appoinment_id" value="<?php echo $row['id']; ?>" id="">
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-danger">Proceed</button>
-                        </div>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </td>
               </tr>
               <?php
                 }
@@ -283,32 +251,14 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
 
         </div>
       </div>
-      <!-- cancel_booking.php?update=<?php echo $row['id']; ?> -->
-
-      <script>
-
-      function confirmFunction(id) {
-
-        var ids= id;
-
-        let reason = prompt("Are you sure want to Cancel the booking  "+ ids +" , if yes please enter the reason", " ");
-
-
-        if (reason != null) {
-
-          window.location.href= "cancel_booking.php?update="+ids+"&reason="+reason+"";
-        }
-
-
-      }
-      </script>
-
 
 
     </section>
 
-  </main><!-- End #main -->
 
+
+
+  </main><!-- End #main -->
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

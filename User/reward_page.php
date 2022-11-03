@@ -146,6 +146,11 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="slot_checking.php">
+              <i class="bi bi-circle"></i><span>Slot Checking</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>Book Appointment</span>
             </a>
@@ -236,7 +241,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                 ?>
               </div>
             </div><!-- End Sales Card -->
-
+            <h5 class="card-title" align="center" >Reward Items should be claim from the shop within 2 days.</h5>
 
             <div class="pagetitle" id="menu-starters"style="">
 
@@ -251,7 +256,7 @@ $conn = mysqli_connect("localhost", "root", "", "salon");
                   <a href="<?php echo $row['reward_path']; ?>" class="glightbox"><img src="<?php echo $row['reward_path']; ?>" class="menu-img img-fluid" alt=""></a>
                   <div style="height:100px">
                   <h4 align="center" ><?php echo $row['reward_item']; ?></h4>
-                  <h4 align="center" ><?php echo $row['reward_point']; ?></h4>
+                  <h4 align="center" ><i class="bi bi-coin"></i><?php echo $row['reward_point']; ?></h4>
                   </div>
                   <div align="center">
                   <p class="price" align="center" >

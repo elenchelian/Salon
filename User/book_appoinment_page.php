@@ -191,6 +191,11 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a href="slot_checking.php">
+              <i class="bi bi-circle"></i><span>Slot Checking</span>
+            </a>
+          </li>
+          <li>
             <a href="book_appoinment_page.php">
               <i class="bi bi-circle"></i><span>Book Appointment</span>
             </a>
@@ -410,6 +415,13 @@ if ( isset($_POST['service_name']) && isset($_POST['service_date']) && isset($_P
                 <label for="inputdeposit" class="form-label">Please pay a Deposit. (min:RM 20)</label>
                 <input type="number" class="form-control" id="service_deposit" name="service_deposit" required>
                 <div class="invalid-feedback">Please, Enter your Deposit Amount</div>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck1" required>
+                <label class="form-check-label" for="gridCheck1">
+                  The deposit is not refundable after submit the booking. Agree to the terms and conditions.
+                </label>
               </div>
 
 

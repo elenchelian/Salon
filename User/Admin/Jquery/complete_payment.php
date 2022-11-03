@@ -14,6 +14,7 @@ $id =$_GET['update'];
 $payment = $_GET['payment'];
 $emails = $_GET['email'];
 $service = $_GET['service'];
+$date = date('Y-m-d');
 
 $sql = "SELECT * FROM user where email='$emails';";
 // var_dump($sql);
@@ -32,7 +33,7 @@ if (mysqli_num_rows($result) > 0) {
   $result = $connection-> query($sql_Update);
   $sql_point ="UPDATE user SET reward_points='$current_points'WHERE email='$emails'";
   $result = $connection-> query($sql_point);
-  $sql_history ="INSERT INTO reward_point (id,email,service,points)VALUES('id','$emails','$service','75')";
+  $sql_history ="INSERT INTO reward_point (id,email,service,points,date)VALUES('id','$emails','$service','75','$date')";
   $result = $connection-> query($sql_history);
 }
 ?>

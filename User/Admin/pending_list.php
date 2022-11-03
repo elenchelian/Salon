@@ -393,9 +393,9 @@ if (mysqli_num_rows($result) > 0) {
 
   function cancelbooking(id) {
     var ids= id;
-    let reason = confirm("Are you sure want to Cancel this Booking "+ ids +" ." );
-    if (reason == true) {
-      window.location.href= "Jquery/cancel_booking.php?update="+ids+"";
+    let reason = prompt("Are you sure want to Cancel this Booking "+ ids +" ." );
+    if (reason != null) {
+      window.location.href= "Jquery/cancel_booking.php?update="+ids+"&reason="+reason+"";
     }
   }
 
